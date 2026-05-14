@@ -1,535 +1,579 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Melis Pamir — CV</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet"/>
-  <style>
-    :root{
-      --teal:#00B5AC; --teal2:#007A74; --teal-lo:rgba(0,181,172,.08);
-      --dark:#071824; --mid:#224455; --sub:#3D6070; --muted:#7FA0AD;
-      --brd:#C8DDE5; --bg:#EFF6F8; --white:#fff;
-    }
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Melis Pamir — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#F4FEFE;
+  --bg2:#071E2C;
+  --teal:#00897B;
+  --teal2:#26C6BC;
+  --teal-lo:rgba(0,137,123,.07);
+  --teal-md:rgba(0,137,123,.14);
+  --ice:#091C26;
+  --muted:#82A4AE;
+  --text:#2D5464;
+  --card:#FFFFFF;
+  --brd:rgba(0,137,123,.14);
+  --brd-hi:rgba(0,137,123,.4);
+  --w:900px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  font-family:'DM Sans',sans-serif;font-size:12.5px;line-height:1.68;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  cursor:none;overflow-x:hidden;
+}
 
-    body{
-      font-family:'DM Sans',sans-serif;
-      background:var(--bg);
-      color:var(--dark);
-      font-size:12.5px;
-      line-height:1.65;
-      -webkit-print-color-adjust:exact;
-      print-color-adjust:exact;
-    }
+/* very subtle grain on white */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");opacity:.35;}
 
-    /* ── SCREEN WRAPPER ── */
-    .screen-wrap{
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      padding:2.5rem 1.5rem 4rem;
-      position:relative;
-    }
+/* CURSOR */
+#cur{width:6px;height:6px;background:var(--teal);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s;}
+#cur-ring{width:26px;height:26px;border:1.5px solid rgba(0,137,123,.45);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s;}
 
-    /* BG canvas */
-    #bg-cv{
-      position:fixed;inset:0;
-      width:100%;height:100%;
-      pointer-events:none;z-index:0;
-    }
+/* BG CANVAS */
+#bg-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
 
-    /* top bar */
-    .top-bar{
-      position:relative;z-index:10;
-      display:flex;align-items:center;justify-content:space-between;
-      width:100%;max-width:860px;margin-bottom:1.8rem;
-    }
-    .top-bar-title{
-      font-family:'Syne',sans-serif;font-weight:800;
-      font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;
-      color:var(--teal);
-    }
-    .print-btn{
-      padding:.55rem 1.5rem;
-      background:var(--teal);color:#fff;
-      font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;
-      letter-spacing:.08em;text-transform:uppercase;
-      border:none;cursor:pointer;border-radius:2px;
-      box-shadow:0 4px 20px rgba(0,181,172,.3);
-      transition:background .2s,transform .15s;
-    }
-    .print-btn:hover{background:var(--teal2);transform:translateY(-1px);}
-    .print-btn:active{transform:translateY(0);}
+/* ambient blobs - very soft, eye-friendly */
+.blob{position:fixed;border-radius:50%;pointer-events:none;filter:blur(90px);z-index:0;}
+.blob1{width:450px;height:450px;background:radial-gradient(circle,rgba(178,239,233,.55),transparent 70%);top:-8%;right:0%;animation:blobDrift 20s ease-in-out infinite;}
+.blob2{width:350px;height:350px;background:radial-gradient(circle,rgba(165,236,229,.4),transparent 70%);bottom:5%;left:-4%;animation:blobDrift 26s ease-in-out infinite reverse;}
+.blob3{width:280px;height:280px;background:radial-gradient(circle,rgba(200,245,240,.45),transparent 70%);top:42%;right:12%;animation:blobDrift 22s ease-in-out infinite 9s;}
+@keyframes blobDrift{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(28px,-18px) scale(1.06)}
+  66%{transform:translate(-18px,26px) scale(.96)}
+}
 
-    /* ── PAGE ── */
-    .page{
-      position:relative;z-index:10;
-      width:100%;max-width:860px;
-      background:var(--white);
-      box-shadow:0 8px 60px rgba(0,0,0,.12);
-      display:grid;
-      grid-template-columns:230px 1fr;
-      overflow:hidden;
-    }
+/* SCROLL PROGRESS */
+#sprog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--teal2));z-index:9999;width:0%;box-shadow:0 0 6px rgba(0,137,123,.4);transition:width .1s;}
 
-    /* ── SIDEBAR ── */
-    .sb{
-      background:var(--dark);
-      padding:0;
-      display:flex;flex-direction:column;
-      position:relative;overflow:hidden;
-    }
-    .sb-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.45;}
-    .sb-inner{position:relative;z-index:1;padding:2.2rem 1.6rem;display:flex;flex-direction:column;gap:1.7rem;}
+/* TOP BAR */
+.topbar{
+  position:relative;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:var(--w);margin:0 auto;
+  padding:2rem 1.5rem 1.5rem;
+  animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both;
+}
+.topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);}
+.btn-print{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.4rem;background:transparent;color:var(--teal);
+  font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--brd-hi);cursor:none;
+  transition:background .2s,transform .15s,box-shadow .2s;
+}
+.btn-print:hover{background:var(--teal-lo);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,137,123,.18);}
 
-    /* photo */
-    .photo-wrap{display:flex;flex-direction:column;align-items:center;gap:.9rem;}
-    .photo-ring{
-      width:116px;height:116px;border-radius:50%;
-      border:2px solid var(--teal);
-      padding:3px;
-      box-shadow:0 0 0 6px rgba(0,181,172,.12),0 0 30px rgba(0,181,172,.2);
-      position:relative;
-    }
-    .photo-ring::after{
-      content:'';position:absolute;inset:-8px;border-radius:50%;
-      border:1px dashed rgba(0,181,172,.3);
-      animation:spinR 18s linear infinite;
-    }
-    @keyframes spinR{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-    .cv-photo{
-      width:100%;height:100%;border-radius:50%;
-      object-fit:cover;object-position:center top;display:block;
-    }
-    .cv-photo-ph{
-      width:110px;height:110px;border-radius:50%;
-      background:rgba(0,181,172,.15);
-      display:flex;align-items:center;justify-content:center;
-      font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;
-      color:var(--teal);
-    }
-    .sb-name{
-      font-family:'Syne',sans-serif;font-weight:800;
-      font-size:1.15rem;line-height:1.1;letter-spacing:-.01em;
-      color:#fff;text-align:center;
-    }
-    .sb-role{
-      font-size:.7rem;color:var(--teal);text-align:center;
-      letter-spacing:.1em;text-transform:uppercase;font-weight:500;
-      margin-top:.2rem;
-    }
+/* PAGE */
+.page{
+  position:relative;z-index:10;
+  max-width:var(--w);margin:0 auto 4rem;
+  display:grid;grid-template-columns:240px 1fr;
+  border:1px solid var(--brd);
+  overflow:hidden;
+  box-shadow:0 8px 60px rgba(0,137,123,.08),0 2px 12px rgba(0,0,0,.04);
+  animation:fadeUp .65s cubic-bezier(.22,1,.36,1) .08s both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
-    /* divider */
-    .sb-div{height:1px;background:rgba(255,255,255,.09);}
+/* ═══ SIDEBAR — stays dark ═══ */
+.sb{
+  background:var(--bg2);border-right:1px solid rgba(0,212,200,.12);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+.sb-dna{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.32;}
+.sb-inner{position:relative;z-index:1;padding:2.2rem 1.6rem;display:flex;flex-direction:column;gap:1.8rem;}
 
-    /* section label */
-    .sb-lbl{
-      font-family:'Syne',sans-serif;font-weight:700;
-      font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
-      color:var(--teal);margin-bottom:.85rem;
-    }
+/* photo */
+.sb-photo-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;}
+.sb-ring{
+  width:120px;height:120px;border-radius:50%;
+  border:1.5px solid rgba(0,212,200,.55);padding:3px;
+  box-shadow:0 0 0 6px rgba(0,212,200,.06),0 0 36px rgba(0,212,200,.13);
+  position:relative;
+}
+.sb-ring::before{
+  content:'';position:absolute;inset:-10px;border-radius:50%;
+  border:1px dashed rgba(0,212,200,.2);
+  animation:sbSpin 20s linear infinite;
+}
+.sb-ring::after{
+  content:'';position:absolute;inset:-18px;border-radius:50%;
+  border:1px solid rgba(0,212,200,.09);
+  animation:sbSpin 32s linear infinite reverse;
+}
+@keyframes sbSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.sb-photo{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center top;display:block;}
+.sb-photo-ph{width:114px;height:114px;border-radius:50%;background:rgba(0,212,200,.07);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:rgba(0,212,200,.75);}
+.sb-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;line-height:1.05;letter-spacing:-.01em;color:#DFF0F8;text-align:center;}
+.sb-role{font-size:.65rem;color:rgba(0,212,200,.8);text-align:center;letter-spacing:.12em;text-transform:uppercase;margin-top:.25rem;font-weight:500;}
 
-    /* contact */
-    .clist{display:flex;flex-direction:column;gap:.5rem;}
-    .ci{display:flex;align-items:flex-start;gap:.55rem;}
-    .ci-ico{
-      width:19px;height:19px;flex-shrink:0;margin-top:1px;
-      background:rgba(0,181,172,.15);border-radius:2px;
-      display:flex;align-items:center;justify-content:center;
-      font-size:.58rem;font-family:'Syne',sans-serif;font-weight:700;color:var(--teal);
-    }
-    .ci-txt{color:rgba(255,255,255,.7);font-size:.73rem;line-height:1.45;word-break:break-word;}
-    .ci-txt a{color:var(--teal);text-decoration:none;}
+/* hud scan */
+.sb-hud{position:absolute;inset:-12px;border-radius:50%;pointer-events:none;overflow:hidden;}
+.sb-hud::after{content:'';position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,200,.6),transparent);box-shadow:0 0 7px rgba(0,212,200,.4);animation:sbScan 3s ease-in-out infinite;}
+@keyframes sbScan{0%{top:-5%}100%{top:105%}}
 
-    /* languages */
-    .llist{display:flex;flex-direction:column;gap:.65rem;}
-    .li-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.28rem;}
-    .li-name{color:rgba(255,255,255,.82);font-size:.78rem;font-weight:500;}
-    .li-lvl{color:var(--teal);font-size:.66rem;letter-spacing:.06em;}
-    .li-bg{height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
-    .li-bar{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal2));border-radius:2px;}
+.sb-div{height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,200,.16),transparent);}
+.sb-lbl{font-family:'Syne',sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(0,212,200,.82);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.sb-lbl::before{content:'';flex:1;height:1px;background:rgba(0,212,200,.16);}
 
-    /* skill chips */
-    .chip-wrap{display:flex;flex-wrap:wrap;gap:.38rem;}
-    .chip{
-      padding:.2rem .52rem;
-      background:rgba(0,181,172,.13);border:1px solid rgba(0,181,172,.28);
-      color:rgba(255,255,255,.78);font-size:.65rem;border-radius:2px;
-    }
+/* contact */
+.clist{display:flex;flex-direction:column;gap:.5rem;}
+.ci{display:flex;align-items:flex-start;gap:.55rem;}
+.ci-ico{width:18px;height:18px;flex-shrink:0;margin-top:1px;background:rgba(0,212,200,.06);border:1px solid rgba(0,212,200,.2);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-family:'Syne',sans-serif;font-weight:800;color:rgba(0,212,200,.75);}
+.ci-txt{color:#8DB8C6;font-size:.72rem;line-height:1.45;word-break:break-word;}
+.ci-txt a{color:rgba(0,212,200,.82);text-decoration:none;transition:color .2s;}
+.ci-txt a:hover{color:#7FFFD4;}
 
-    /* tool chips */
-    .tool-chip{
-      padding:.2rem .52rem;
-      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-      color:rgba(255,255,255,.6);font-size:.63rem;border-radius:2px;
-    }
+/* languages */
+.llist{display:flex;flex-direction:column;gap:.7rem;}
+.li-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.3rem;}
+.li-name{color:#DFF0F8;font-size:.78rem;font-weight:500;}
+.li-lvl{font-family:'JetBrains Mono',monospace;color:rgba(0,212,200,.82);font-size:.62rem;letter-spacing:.05em;}
+.li-bg{height:2px;background:rgba(255,255,255,.07);border-radius:1px;overflow:hidden;}
+.li-bar{height:100%;background:linear-gradient(90deg,rgba(0,212,200,.65),rgba(127,255,212,.55));border-radius:1px;}
 
-    /* ── MAIN ── */
-    .main{padding:2.2rem 2rem;display:flex;flex-direction:column;gap:1.7rem;}
+/* chips sidebar */
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.chip{padding:.18rem .5rem;background:rgba(0,212,200,.06);border:1px solid rgba(0,212,200,.13);color:#8DB8C6;font-size:.63rem;letter-spacing:.04em;border-radius:1px;transition:border-color .2s,color .2s;}
+.chip:hover{border-color:rgba(0,212,200,.32);color:rgba(0,212,200,.88);}
+.tool-chip{padding:.18rem .5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:#4E8090;font-size:.62rem;border-radius:1px;font-family:'JetBrains Mono',monospace;transition:border-color .2s,color .2s;}
+.tool-chip:hover{border-color:rgba(0,212,200,.28);color:rgba(0,212,200,.78);}
 
-    /* about highlight */
-    .about-hl{
-      background:var(--teal-lo);border-left:3px solid var(--teal);
-      padding:.85rem 1rem;
-      font-size:.82rem;color:var(--mid);line-height:1.78;font-style:italic;
-      position:relative;overflow:hidden;
-    }
-    .about-hl::after{
-      content:'"';position:absolute;right:.8rem;top:-.4rem;
-      font-size:4rem;color:rgba(0,181,172,.1);font-family:'Syne',sans-serif;font-weight:800;
-      line-height:1;pointer-events:none;
-    }
+/* ═══ MAIN — white ═══ */
+.main{padding:2.4rem 2.2rem;display:flex;flex-direction:column;gap:2rem;background:#FFFFFF;}
 
-    /* section */
-    .sec-head{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;}
-    .sec-head h2{
-      font-family:'Syne',sans-serif;font-weight:800;
-      font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dark);
-      white-space:nowrap;
-    }
-    .sec-line{flex:1;height:1px;background:var(--brd);}
+/* about highlight */
+.about-hl{
+  position:relative;overflow:hidden;
+  border-left:2px solid var(--teal);padding:.95rem 1.2rem;
+  background:var(--teal-lo);
+  font-size:.83rem;color:var(--text);line-height:1.85;font-style:italic;
+}
+.about-hl::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--teal),transparent);}
+.about-hl::after{content:'"';position:absolute;right:.6rem;top:-.5rem;font-size:4rem;color:rgba(0,137,123,.07);font-family:'Syne',sans-serif;font-weight:800;line-height:1;pointer-events:none;}
 
-    /* experience entry */
-    .exp{margin-bottom:1.15rem;padding-bottom:1.15rem;border-bottom:1px solid #E5EFF3;}
-    .exp:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-    .exp-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.18rem;}
-    .exp-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;color:var(--dark);}
-    .exp-date{font-size:.68rem;color:var(--muted);white-space:nowrap;flex-shrink:0;letter-spacing:.04em;margin-top:.1rem;}
-    .exp-org{font-size:.78rem;color:var(--teal);font-weight:500;margin-bottom:.15rem;}
-    .exp-meta{font-size:.68rem;color:var(--muted);margin-bottom:.38rem;letter-spacing:.03em;}
-    .exp-ul{padding-left:1rem;}
-    .exp-ul li{font-size:.78rem;color:var(--mid);line-height:1.7;margin-bottom:.18rem;}
+/* section head */
+.sh{display:flex;align-items:center;gap:.8rem;margin-bottom:1.1rem;}
+.sh h2{font-family:'Syne',sans-serif;font-weight:800;font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:var(--teal);white-space:nowrap;}
+.sh-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(0,137,123,.2),transparent);}
+.sh-num{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.08em;}
 
-    /* education entry */
-    .edu{display:grid;grid-template-columns:10px 1fr;gap:.8rem;margin-bottom:1rem;align-items:start;}
-    .edu:last-child{margin-bottom:0;}
-    .edu-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);margin-top:.3rem;flex-shrink:0;box-shadow:0 0 0 3px rgba(0,181,172,.18);}
-    .edu-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.86rem;color:var(--dark);line-height:1.2;margin-bottom:.1rem;}
-    .edu-org{font-size:.78rem;color:var(--teal);font-weight:500;margin-bottom:.12rem;}
-    .edu-meta{font-size:.68rem;color:var(--muted);letter-spacing:.04em;margin-bottom:.3rem;}
-    .edu-note{font-size:.75rem;color:var(--sub);}
+/* experience */
+.exp-card{
+  padding:1.2rem 1.4rem;border:1px solid var(--brd);
+  background:#FAFFFE;position:relative;overflow:hidden;
+  margin-bottom:1rem;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+  box-shadow:0 1px 8px rgba(0,137,123,.05);
+}
+.exp-card:last-child{margin-bottom:0;}
+.exp-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--teal);transform:scaleY(0);transform-origin:top;transition:transform .35s ease;}
+.exp-card:hover{border-color:var(--brd-hi);transform:translateX(4px);box-shadow:0 4px 22px rgba(0,137,123,.1);}
+.exp-card:hover::before{transform:scaleY(1);}
+.exp-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.2rem;}
+.exp-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:var(--ice);line-height:1.2;}
+.exp-date{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);white-space:nowrap;flex-shrink:0;margin-top:.1rem;}
+.exp-org{font-size:.78rem;color:var(--teal);font-weight:600;margin-bottom:.15rem;}
+.exp-meta{font-size:.66rem;color:var(--muted);margin-bottom:.4rem;letter-spacing:.03em;}
+.exp-ul{padding-left:1rem;}
+.exp-ul li{font-size:.78rem;color:var(--text);line-height:1.72;margin-bottom:.18rem;}
+.exp-ul li::marker{color:var(--teal);}
 
-    /* project card */
-    .proj{
-      background:var(--bg);border:1px solid var(--brd);
-      border-left:3px solid var(--teal);
-      padding:.85rem 1rem;margin-bottom:.85rem;
-      position:relative;overflow:hidden;
-    }
-    .proj:last-child{margin-bottom:0;}
-    .proj::before{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(0,181,172,.04),transparent 60%);
-      pointer-events:none;
-    }
-    .proj-badge{
-      display:inline-block;padding:.1rem .48rem;
-      background:rgba(0,181,172,.15);color:var(--teal);
-      font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
-      font-weight:700;margin-bottom:.3rem;border-radius:1px;
-    }
-    .proj-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:var(--dark);margin-bottom:.28rem;}
-    .proj-desc{font-size:.78rem;color:var(--mid);line-height:1.72;}
+/* education */
+.edu-item{display:grid;grid-template-columns:8px 1fr;gap:.8rem;margin-bottom:.95rem;align-items:start;}
+.edu-item:last-child{margin-bottom:0;}
+.edu-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);margin-top:.28rem;flex-shrink:0;box-shadow:0 0 0 3px rgba(0,137,123,.12);}
+.edu-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.86rem;color:var(--ice);margin-bottom:.08rem;line-height:1.2;}
+.edu-org{font-size:.76rem;color:var(--teal);font-weight:600;margin-bottom:.1rem;}
+.edu-meta{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.04em;margin-bottom:.28rem;}
+.edu-note{font-size:.73rem;color:var(--text);}
 
-    /* skills grid */
-    .skill-2col{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;}
-    .skill-row{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:.38rem .6rem;background:var(--bg);border:1px solid var(--brd);
-    }
-    .skill-nm{font-size:.77rem;color:var(--dark);}
-    .skill-dots{display:flex;gap:3px;}
-    .dot{width:7px;height:7px;border-radius:50%;background:#D8E8EC;}
-    .dot.on{background:var(--teal);}
+/* projects */
+.proj-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.proj-card{
+  padding:1.1rem 1.2rem;border:1px solid var(--brd);background:#FAFFFE;
+  border-left:2px solid var(--teal);position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+  box-shadow:0 1px 8px rgba(0,137,123,.05);
+}
+.proj-card:hover{border-color:var(--brd-hi);transform:translateY(-3px);box-shadow:0 6px 26px rgba(0,137,123,.1);}
+.proj-badge{display:inline-block;padding:.12rem .5rem;background:rgba(0,137,123,.09);border:1px solid rgba(0,137,123,.2);color:var(--teal);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;font-family:'Syne',sans-serif;margin-bottom:.3rem;}
+.proj-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:var(--ice);margin-bottom:.28rem;line-height:1.3;}
+.proj-desc{font-size:.76rem;color:var(--text);line-height:1.72;}
 
-    /* cert */
-    .cert{
-      display:flex;align-items:flex-start;gap:.7rem;
-      padding:.7rem .85rem;background:var(--bg);border:1px solid var(--brd);
-      margin-bottom:.5rem;
-    }
-    .cert:last-child{margin-bottom:0;}
-    .cert-ico{
-      width:22px;height:22px;background:var(--teal-lo);border:1px solid rgba(0,181,172,.3);
-      border-radius:2px;display:flex;align-items:center;justify-content:center;
-      font-size:.65rem;font-family:'Syne',sans-serif;font-weight:700;color:var(--teal);flex-shrink:0;
-    }
-    .cert-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;color:var(--dark);margin-bottom:.08rem;}
-    .cert-org{font-size:.7rem;color:var(--muted);}
+/* biosensor card */
+.proj-bio{display:grid;grid-template-columns:1fr 268px;gap:1.8rem;align-items:center;min-height:160px;margin-top:1rem;}
+.proj-bio-feats{list-style:none;margin-top:.6rem;display:flex;flex-direction:column;gap:.28rem;}
+.proj-bio-feats li{font-size:.73rem;color:var(--text);line-height:1.5;display:flex;align-items:flex-start;gap:.45rem;}
+.proj-bio-feats li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:.45rem;}
 
-    /* ── PRINT ── */
-    @media print{
-      #bg-cv,.screen-wrap>.top-bar,.print-btn{display:none!important;}
-      body{background:#fff;}
-      .screen-wrap{padding:0;}
-      .page{box-shadow:none;max-width:100%;width:100%;}
-      @page{margin:0;size:A4;}
-      .sb-canvas{display:none!important;}
-      .photo-ring::after{display:none!important;}
-      .proj::before{display:none!important;}
-    }
-  </style>
+/* biosensor monitor */
+.bio-monitor{
+  background:#040F19;border:1px solid rgba(0,212,200,.24);border-radius:5px;
+  padding:.65rem .75rem;position:relative;overflow:hidden;
+  box-shadow:0 0 40px rgba(0,212,200,.05) inset,0 4px 24px rgba(0,0,0,.22);
+}
+.bio-monitor::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,200,.35),transparent);}
+/* scanline */
+.bio-monitor::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,212,200,.015) 4px);pointer-events:none;z-index:2;}
+
+.bio-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;position:relative;z-index:3;}
+.bio-label{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:rgba(0,212,200,.65);letter-spacing:.12em;display:flex;align-items:center;gap:.35rem;}
+.bio-live-dot{width:5px;height:5px;background:#00E676;border-radius:50%;animation:bioBlink 1.1s ease-in-out infinite;}
+@keyframes bioBlink{0%,100%{opacity:1;box-shadow:0 0 5px #00E676}50%{opacity:.15;box-shadow:none}}
+.bio-sync{font-family:'JetBrains Mono',monospace;font-size:.48rem;color:rgba(0,212,200,.4);letter-spacing:.08em;}
+
+#ecg-canvas{display:block;width:100%;height:62px;position:relative;z-index:3;}
+
+.bio-vitals{display:grid;grid-template-columns:1fr 1fr;gap:.28rem .6rem;margin-top:.38rem;position:relative;z-index:3;}
+.bio-vital{display:flex;flex-direction:column;}
+.bv-lbl{font-family:'JetBrains Mono',monospace;font-size:.46rem;color:rgba(0,212,200,.45);letter-spacing:.1em;text-transform:uppercase;}
+.bv-val{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:rgba(0,212,200,.85);letter-spacing:.04em;transition:color .4s;}
+.bv-val.danger{color:#FF5722;}
+
+.bio-risk-row{margin-top:.42rem;position:relative;z-index:3;}
+.bio-risk-head{display:flex;justify-content:space-between;margin-bottom:.22rem;}
+.bio-risk-lbl{font-family:'JetBrains Mono',monospace;font-size:.46rem;color:rgba(0,212,200,.45);letter-spacing:.1em;text-transform:uppercase;}
+.bio-risk-pct{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:rgba(0,212,200,.75);letter-spacing:.06em;transition:color .4s;}
+.bio-risk-track{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
+.bio-risk-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#00D4C8,#00E676);width:22%;transition:width 1s ease,background .6s;}
+.bio-risk-fill.medium{background:linear-gradient(90deg,#FFB300,#FF8C00);}
+.bio-risk-fill.high{background:linear-gradient(90deg,#FF5722,#FF1744);}
+
+.bio-alert{
+  font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;
+  color:#FF5722;min-height:.7rem;margin-top:.35rem;
+  opacity:0;transition:opacity .4s;position:relative;z-index:3;
+  display:flex;align-items:center;gap:.3rem;
+}
+.bio-alert-icon{font-size:.6rem;}
+.bio-alert.visible{opacity:1;animation:alertFlash .6s ease-in-out infinite alternate;}
+@keyframes alertFlash{from{color:#FF5722;text-shadow:0 0 6px rgba(255,87,34,.5)}to{color:#FF1744;text-shadow:0 0 10px rgba(255,23,68,.7)}}
+
+/* skills */
+.skill-2col{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;}
+.skill-row{display:flex;align-items:center;justify-content:space-between;padding:.38rem .7rem;background:#FAFFFE;border:1px solid var(--brd);transition:border-color .3s,box-shadow .3s;}
+.skill-row:hover{border-color:var(--brd-hi);box-shadow:0 2px 10px rgba(0,137,123,.08);}
+.skill-nm{font-size:.76rem;color:var(--text);}
+.dots{display:flex;gap:3px;}
+.d{width:6px;height:6px;border-radius:50%;background:rgba(0,137,123,.14);}
+.d.on{background:var(--teal);box-shadow:0 0 4px rgba(0,137,123,.35);}
+
+/* footer */
+.cv-footer{
+  position:relative;z-index:10;
+  max-width:var(--w);margin:0 auto 3rem;
+  border:1px solid var(--brd);border-top:none;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.8rem 1.6rem;background:#FAFFFE;
+}
+.cv-footer-name{font-family:'Syne',sans-serif;font-weight:800;font-size:.75rem;letter-spacing:.08em;color:var(--teal);}
+.cv-footer-note{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.06em;}
+
+/* glow sweep */
+.glow-h{height:1px;background:linear-gradient(90deg,transparent,rgba(0,137,123,.18),transparent);position:relative;overflow:hidden;}
+.glow-h::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,137,123,.55),transparent);animation:sweep 5s ease-in-out infinite;}
+@keyframes sweep{0%{left:-100%}100%{left:100%}}
+
+/* PRINT */
+@media print{
+  #bg-canvas,#cur,#cur-ring,#sprog,.topbar,.cv-footer,.glow-h,.blob{display:none!important;}
+  body{background:#fff;cursor:default;}
+  .page{border:none;max-width:100%;box-shadow:none;animation:none;}
+  .sb{background:#0A1F2E;}
+  .main{background:#fff;}
+  .sb-dna,.sb-ring::before,.sb-ring::after,.sb-hud::after{display:none!important;}
+  .exp-card,.proj-card,.skill-row{background:#F5F9FA!important;border-color:#C8DDE5!important;box-shadow:none!important;}
+  .d.on{box-shadow:none!important;}
+  @page{margin:0;size:A4;}
+}
+</style>
 </head>
 <body>
 
-<!-- Full-page bg canvas (screen only) -->
-<canvas id="bg-cv"></canvas>
+<canvas id="bg-canvas"></canvas>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+<div id="sprog"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
 
-<div class="screen-wrap">
-  <div class="top-bar">
-    <div class="top-bar-title">Melis Pamir — Curriculum Vitae</div>
-    <button class="print-btn" onclick="window.print()">↓ PDF Olarak İndir</button>
-  </div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-logo">Melis Pamir · Curriculum Vitae</div>
+  <button class="btn-print" onclick="window.print()">↓ Download PDF</button>
+</div>
 
-  <div class="page">
+<div class="glow-h"></div>
 
-    <!-- ══════════════════ SIDEBAR ══════════════════ -->
-    <aside class="sb">
-      <canvas class="sb-canvas" id="sb-cv"></canvas>
-      <div class="sb-inner">
+<!-- PAGE -->
+<div class="page">
 
-        <!-- Photo + Name -->
-        <div class="photo-wrap">
-          <div class="photo-ring">
-            <img src="photo.jpg" alt="Melis Pamir" class="cv-photo"
-              onerror="this.parentElement.outerHTML='<div class=\'cv-photo-ph\'>MP</div>'"/>
-          </div>
-          <div>
-            <div class="sb-name">Melis Pamir</div>
-            <div class="sb-role">BE · Biomedical &amp; Mechanical</div>
-          </div>
+  <!-- SIDEBAR -->
+  <aside class="sb">
+    <canvas class="sb-dna" id="sb-dna"></canvas>
+    <div class="sb-inner">
+
+      <div class="sb-photo-wrap">
+        <div class="sb-ring" style="position:relative;">
+          <div class="sb-hud"></div>
+          <img src="photo.jpg2.jpg" alt="Melis Pamir" class="sb-photo"
+            onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<div class=\'sb-photo-ph\'>MP</div>')"/>
         </div>
-
-        <div class="sb-div"></div>
-
-        <!-- Contact -->
         <div>
-          <div class="sb-lbl">İletişim</div>
-          <div class="clist">
-            <div class="ci">
-              <div class="ci-ico">@</div>
-              <div class="ci-txt"><a href="mailto:pamirmeliss@gmail.com">pamirmeliss@gmail.com</a></div>
-            </div>
-            <div class="ci">
-              <div class="ci-ico">☎</div>
-              <div class="ci-txt">+39 351 559 8102</div>
-            </div>
-            <div class="ci">
-              <div class="ci-ico">📍</div>
-              <div class="ci-txt">Milano, İtalya</div>
-            </div>
-            <div class="ci">
-              <div class="ci-ico">in</div>
-              <div class="ci-txt"><a href="https://linkedin.com/in/melis-pamir-642112261" target="_blank">linkedin.com/in/melis-pamir</a></div>
-            </div>
-            <div class="ci">
-              <div class="ci-ico">ig</div>
-              <div class="ci-txt"><a href="https://instagram.com/pamirmeliss" target="_blank">@pamirmeliss</a></div>
-            </div>
-          </div>
+          <div class="sb-name">Melis Pamir</div>
+          <div class="sb-role">BE · Biomedical &amp; Mechanical</div>
         </div>
-
-        <div class="sb-div"></div>
-
-        <!-- Languages -->
-        <div>
-          <div class="sb-lbl">Diller</div>
-          <div class="llist">
-            <div>
-              <div class="li-top"><span class="li-name">Türkçe</span><span class="li-lvl">Ana Dil</span></div>
-              <div class="li-bg"><div class="li-bar" style="width:100%"></div></div>
-            </div>
-            <div>
-              <div class="li-top"><span class="li-name">İtalyanca</span><span class="li-lvl">C2</span></div>
-              <div class="li-bg"><div class="li-bar" style="width:95%"></div></div>
-            </div>
-            <div>
-              <div class="li-top"><span class="li-name">İngilizce</span><span class="li-lvl">C1</span></div>
-              <div class="li-bg"><div class="li-bar" style="width:85%"></div></div>
-            </div>
-            <div>
-              <div class="li-top"><span class="li-name">Almanca</span><span class="li-lvl">B2</span></div>
-              <div class="li-bg"><div class="li-bar" style="width:65%"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="sb-div"></div>
-
-        <!-- Technical Skills -->
-        <div>
-          <div class="sb-lbl">Teknik Beceriler</div>
-          <div class="chip-wrap">
-            <span class="chip">MATLAB</span>
-            <span class="chip">3D Baskı / FDM / SLA</span>
-            <span class="chip">Mekanik Karakterizasyon</span>
-            <span class="chip">MRI Görüntü İşleme</span>
-            <span class="chip">Biyomekanik Analiz</span>
-            <span class="chip">Tıbbi Cihaz Kalibrasyonu</span>
-            <span class="chip">Veri Analizi</span>
-            <span class="chip">Prototipleme</span>
-            <span class="chip">CAD</span>
-          </div>
-        </div>
-
-        <div class="sb-div"></div>
-
-        <!-- Tools -->
-        <div>
-          <div class="sb-lbl">Yazılım &amp; Araçlar</div>
-          <div class="chip-wrap">
-            <span class="tool-chip">MATLAB</span>
-            <span class="tool-chip">MS Excel</span>
-            <span class="tool-chip">3D Printing</span>
-            <span class="tool-chip">MRI Segmentation</span>
-            <span class="tool-chip">Medical Dosimetry</span>
-            <span class="tool-chip">CAD</span>
-            <span class="tool-chip">AutoCAD</span>
-          </div>
-        </div>
-
-      </div>
-    </aside>
-
-    <!-- ══════════════════ MAIN ══════════════════ -->
-    <main class="main">
-
-      <!-- Hakkımda -->
-      <div class="about-hl">
-        Politecnico di Milano'da Mühendislik lisans eğitimimi sürdüren, biyomekanik ve tıbbi görüntü işleme alanlarında araştırma ve uluslararası saha deneyimine sahip bir mühendislik öğrencisiyim. 3D baskı malzemelerinin mekanik karakterizasyonu ve MATLAB tabanlı MRI beyin görüntüsü işleme üzerine aktif projeler yürütmekteyim. Almanya ve İtalya'daki stajlarımla çok kültürlü ortamlarda deneyim kazandım; dört dilde ileri seviyede iletişim kuruyorum.
       </div>
 
-      <!-- Eğitim -->
+      <div class="sb-div"></div>
+
       <div>
-        <div class="sec-head"><h2>Eğitim</h2><div class="sec-line"></div></div>
-
-        <div class="edu">
-          <div class="edu-dot"></div>
-          <div>
-            <div class="edu-title">Bachelor of Engineering — Biyomedikal &amp; Mekanik Mühendislik</div>
-            <div class="edu-org">Politecnico di Milano</div>
-            <div class="edu-meta">2022 — Devam ediyor &nbsp;·&nbsp; Milano, İtalya</div>
-            <div class="edu-note">Biyomekanik · Tıbbi Görüntü İşleme · 3D Baskı ve Prototipleme</div>
-          </div>
-        </div>
-
-        <div class="edu">
-          <div class="edu-dot"></div>
-          <div>
-            <div class="edu-title">Lise</div>
-            <div class="edu-org">Liceo Italiano di Istanbul</div>
-            <div class="edu-meta">2017 — 2022 &nbsp;·&nbsp; İstanbul, Türkiye</div>
-          </div>
-        </div>
-
-        <div class="edu">
-          <div class="edu-dot"></div>
-          <div>
-            <div class="edu-title">Müzik Bölümü</div>
-            <div class="edu-org">İstanbul Üniversitesi Devlet Konservatuvarı</div>
-            <div class="edu-meta">2013 — 2017 &nbsp;·&nbsp; İstanbul, Türkiye</div>
-            <div class="edu-note">Üflemeli Çalgılar Anasanat Dalı &nbsp;·&nbsp; Müzik Teorisi</div>
-          </div>
+        <div class="sb-lbl">Contact</div>
+        <div class="clist">
+          <div class="ci"><div class="ci-ico">@</div><div class="ci-txt"><a href="mailto:pamirmeliss@gmail.com">pamirmeliss@gmail.com</a></div></div>
+          <div class="ci"><div class="ci-ico">☎</div><div class="ci-txt">+39 351 559 8102</div></div>
+          <div class="ci"><div class="ci-ico">📍</div><div class="ci-txt">Milano, Italy</div></div>
+          <div class="ci"><div class="ci-ico">in</div><div class="ci-txt"><a href="https://linkedin.com/in/melis-pamir-642112261" target="_blank">linkedin.com/in/melis-pamir</a></div></div>
+          <div class="ci"><div class="ci-ico">ig</div><div class="ci-txt"><a href="https://instagram.com/pamirmeliss" target="_blank">@pamirmeliss</a></div></div>
         </div>
       </div>
 
-      <!-- Deneyim -->
-      <div>
-        <div class="sec-head"><h2>Deneyim</h2><div class="sec-line"></div></div>
+      <div class="sb-div"></div>
 
-        <div class="exp">
-          <div class="exp-hd">
-            <div class="exp-title">Medical Imaging Technician</div>
-            <div class="exp-date">Tem 2024 — Kas 2024</div>
-          </div>
-          <div class="exp-org">IBA Dosimetry</div>
-          <div class="exp-meta">Stajyer &nbsp;·&nbsp; Almanya &nbsp;·&nbsp; Ofiste</div>
-          <ul class="exp-ul">
-            <li>Tıbbi dozimetri cihazlarının kalibrasyonu ve teknik bakım süreçlerinde aktif rol alındı.</li>
-            <li>MRI ve radyasyon dozimetri sistemleriyle teknik ölçüm süreçleri yürütüldü.</li>
-            <li>Microsoft Excel kullanılarak ölçüm verilerinin analizi ve teknik raporlama gerçekleştirildi.</li>
-            <li>Uluslararası mühendislik ekibiyle İngilizce ve Almanca iletişim kurularak proje süreçlerine katkı sağlandı.</li>
+      <div>
+        <div class="sb-lbl">Languages</div>
+        <div class="llist">
+          <div><div class="li-top"><span class="li-name">Turkish</span><span class="li-lvl">Native</span></div><div class="li-bg"><div class="li-bar" style="width:100%"></div></div></div>
+          <div><div class="li-top"><span class="li-name">Italian</span><span class="li-lvl">C2</span></div><div class="li-bg"><div class="li-bar" style="width:95%"></div></div></div>
+          <div><div class="li-top"><span class="li-name">English</span><span class="li-lvl">C1</span></div><div class="li-bg"><div class="li-bar" style="width:85%"></div></div></div>
+          <div><div class="li-top"><span class="li-name">German</span><span class="li-lvl">B2</span></div><div class="li-bg"><div class="li-bar" style="width:65%"></div></div></div>
+        </div>
+      </div>
+
+      <div class="sb-div"></div>
+
+      <div>
+        <div class="sb-lbl">Technical Skills</div>
+        <div class="chips">
+          <span class="chip">MATLAB</span>
+          <span class="chip">3D Printing FDM/SLA</span>
+          <span class="chip">Mechanical Characterization</span>
+          <span class="chip">MRI Image Processing</span>
+          <span class="chip">Biomechanical Analysis</span>
+          <span class="chip">Medical Device Calibration</span>
+          <span class="chip">Data Analysis</span>
+          <span class="chip">Prototyping</span>
+          <span class="chip">CAD</span>
+        </div>
+      </div>
+
+      <div class="sb-div"></div>
+
+      <div>
+        <div class="sb-lbl">Tools</div>
+        <div class="chips">
+          <span class="tool-chip">MATLAB</span>
+          <span class="tool-chip">MS Excel</span>
+          <span class="tool-chip">AutoCAD</span>
+          <span class="tool-chip">MRI Segmentation</span>
+          <span class="tool-chip">Medical Dosimetry</span>
+          <span class="tool-chip">SolidWorks</span>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="about-hl">
+      Engineering student at Politecnico di Milano with research experience in biomechanics and medical image processing. Actively working on 3D-printed material characterization and MATLAB-based MRI brain image processing. International internship experience in Germany and Italy; communicating fluently in four languages.
+    </div>
+
+    <!-- Education -->
+    <div>
+      <div class="sh"><h2>Education</h2><div class="sh-line"></div><div class="sh-num">03</div></div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <div class="edu-title">Bachelor of Engineering — Biomedical &amp; Mechanical Engineering</div>
+          <div class="edu-org">Politecnico di Milano</div>
+          <div class="edu-meta">2022 — Present · Milano, Italy</div>
+          <div class="edu-note">Biomechanics · Medical Image Processing · 3D Printing &amp; Prototyping</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <div class="edu-title">High School Diploma</div>
+          <div class="edu-org">Liceo Italiano di Istanbul</div>
+          <div class="edu-meta">2017 — 2022 · Istanbul, Turkey</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <div class="edu-title">Music Department</div>
+          <div class="edu-org">Istanbul University State Conservatory</div>
+          <div class="edu-meta">2013 — 2017 · Istanbul, Turkey</div>
+          <div class="edu-note">Wind Instruments · Music Theory</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div>
+      <div class="sh"><h2>Experience</h2><div class="sh-line"></div><div class="sh-num">02</div></div>
+      <div class="exp-card">
+        <div class="exp-hd">
+          <div class="exp-title">Medical Imaging Technician</div>
+          <div class="exp-date">Jul 2024 — Nov 2024</div>
+        </div>
+        <div class="exp-org">IBA Dosimetry</div>
+        <div class="exp-meta">Intern · Germany · On-site · 5 months</div>
+        <ul class="exp-ul">
+          <li>Calibration and technical maintenance of medical dosimetry devices.</li>
+          <li>Technical measurement workflows with MRI and radiation dosimetry systems.</li>
+          <li>Data analysis and technical reporting using Microsoft Excel.</li>
+          <li>Cross-functional collaboration in English and German within international engineering team.</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-hd">
+          <div class="exp-title">Customer Service Consultant</div>
+          <div class="exp-date">Jul 2021 — Aug 2021</div>
+        </div>
+        <div class="exp-org">The Italian Sea Group S.p.A</div>
+        <div class="exp-meta">Intern · Carrara, Tuscany, Italy · On-site · 2 months</div>
+        <ul class="exp-ul">
+          <li>Client relationship management with international customers in Italian and English.</li>
+          <li>Developed interpersonal communication and negotiation skills in a multicultural environment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Research & Projects -->
+    <div>
+      <div class="sh"><h2>Research &amp; Projects</h2><div class="sh-line"></div><div class="sh-num">03</div></div>
+      <div class="proj-row">
+        <div class="proj-card">
+          <div class="proj-badge">Thesis</div>
+          <div class="proj-title">Mechanical Characterization of 3D-Printed Materials for Functional Biomechanical Prototypes: Fatigue Properties</div>
+          <div class="proj-desc">Fatigue resistance analysis of FDM/SLA printed materials. Examining material type and print parameter effects on mechanical performance for clinically optimized biomedical prototypes.</div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-badge">Active Project</div>
+          <div class="proj-title">MRI Brain Image Processing &amp; Ventricular Semi-Automatic Segmentation using MATLAB</div>
+          <div class="proj-desc">Developing an MRI image processing pipeline with a custom lateral ventricle segmentation algorithm aimed at accelerating clinical diagnostic workflows.</div>
+        </div>
+      </div>
+
+      <!-- Biosensor card -->
+      <div class="proj-card proj-bio">
+        <div>
+          <div class="proj-badge">Active Research</div>
+          <div class="proj-title">Cardiac Biosensor Development — Early Cardiac Event Detection</div>
+          <div class="proj-desc">Wearable multi-parameter biosensor integrating analog front-end circuitry with AI-driven risk prediction to detect cardiac events before they occur.</div>
+          <ul class="proj-bio-feats">
+            <li>Troponin (TnI) biomarker monitoring in real time for myocardial damage detection</li>
+            <li>ECG signal acquisition with arrhythmia &amp; ST-elevation classification</li>
+            <li>SpO₂, blood pressure &amp; stress index continuous tracking</li>
+            <li>On-device AI model predicts "approaching risk" 15–30 min ahead of event</li>
           </ul>
         </div>
-
-        <div class="exp">
-          <div class="exp-hd">
-            <div class="exp-title">Customer Service Consultant</div>
-            <div class="exp-date">Tem 2021 — Ağu 2021</div>
+        <div class="bio-monitor">
+          <div class="bio-top">
+            <div class="bio-label"><span class="bio-live-dot"></span>CARDIAC BIOSENSOR</div>
+            <div class="bio-sync" id="bio-sync">◈ SYNC</div>
           </div>
-          <div class="exp-org">The Italian Sea Group S.p.A</div>
-          <div class="exp-meta">Stajyer &nbsp;·&nbsp; Carrara, Toskana, İtalya &nbsp;·&nbsp; Ofiste</div>
-          <ul class="exp-ul">
-            <li>Uluslararası müşterilerle İtalyanca ve İngilizce iletişim kurularak müşteri ilişkileri yönetildi.</li>
-            <li>Çok kültürlü iş ortamında kişilerarası iletişim ve müzakere becerileri pekiştirildi.</li>
-          </ul>
+          <canvas id="ecg-canvas"></canvas>
+          <div class="bio-vitals">
+            <div class="bio-vital"><div class="bv-lbl">Heart Rate</div><div class="bv-val" id="bv-bpm">72 BPM</div></div>
+            <div class="bio-vital"><div class="bv-lbl">SpO₂</div><div class="bv-val" id="bv-spo2">97 %</div></div>
+            <div class="bio-vital"><div class="bv-lbl">Troponin I</div><div class="bv-val" id="bv-tni">0.01 ng/mL</div></div>
+            <div class="bio-vital"><div class="bv-lbl">Blood Press.</div><div class="bv-val" id="bv-bp">118/76</div></div>
+          </div>
+          <div class="bio-risk-row">
+            <div class="bio-risk-head">
+              <div class="bio-risk-lbl">AI Risk Score</div>
+              <div class="bio-risk-pct" id="bio-risk-pct">18% — LOW</div>
+            </div>
+            <div class="bio-risk-track"><div class="bio-risk-fill" id="bio-risk-fill" style="width:18%"></div></div>
+          </div>
+          <div class="bio-alert" id="bio-alert">
+            <span class="bio-alert-icon">⚠</span><span id="bio-alert-txt">ST-ELEVATION DETECTED</span>
+          </div>
         </div>
       </div>
 
-      <!-- Araştırma & Projeler -->
-      <div>
-        <div class="sec-head"><h2>Araştırma &amp; Projeler</h2><div class="sec-line"></div></div>
+    </div>
 
-        <div class="proj">
-          <div class="proj-badge">Tez Projesi</div>
-          <div class="proj-title">3D Baskılı Malzemelerin Mekanik Karakterizasyonu</div>
-          <div class="proj-desc">Fonksiyonel biyomekanik prototipler için 3D baskılı malzemelerin (FDM / SLA) yorulma dayanımı analizi. Farklı malzeme türleri ve baskı parametrelerinin mekanik performans üzerindeki etkisi sistematik olarak incelenmektedir. Amaç: klinik kullanıma uygun, optimize edilmiş biyomedikal prototipler geliştirmek.</div>
-        </div>
-
-        <div class="proj">
-          <div class="proj-badge">Aktif Proje</div>
-          <div class="proj-title">MRI Beyin Görüntüsü İşleme &amp; Ventriküler Segmentasyon</div>
-          <div class="proj-desc">MATLAB kullanılarak MRI beyin görüntüsü işleme pipeline'ı geliştirilmekte; lateral ventriküllerin yarı otomatik segmentasyonu için özel algoritma tasarlanmaktadır. Klinik tanı süreçlerini hızlandırmaya yönelik, ölçülebilir ve tekrarlanabilir bir segmentasyon yöntemi hedeflenmektedir.</div>
-        </div>
+    <!-- Skills -->
+    <div>
+      <div class="sh"><h2>Technical Proficiency</h2><div class="sh-line"></div><div class="sh-num">08</div></div>
+      <div class="skill-2col">
+        <div class="skill-row"><span class="skill-nm">MATLAB</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div></div></div>
+        <div class="skill-row"><span class="skill-nm">3D Printing FDM / SLA</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d"></div></div></div>
+        <div class="skill-row"><span class="skill-nm">Mechanical Characterization</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d"></div></div></div>
+        <div class="skill-row"><span class="skill-nm">MRI Image Processing</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d"></div></div></div>
+        <div class="skill-row"><span class="skill-nm">Biomechanical Analysis</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d"></div></div></div>
+        <div class="skill-row"><span class="skill-nm">Medical Device Calibration</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d"></div><div class="d"></div></div></div>
+        <div class="skill-row"><span class="skill-nm">Data Analysis (Excel)</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d"></div></div></div>
+        <div class="skill-row"><span class="skill-nm">CAD / Prototyping</span><div class="dots"><div class="d on"></div><div class="d on"></div><div class="d on"></div><div class="d"></div><div class="d"></div></div></div>
       </div>
+    </div>
 
-      <!-- Teknik Yetkinlikler (detaylı) -->
-      <div>
-        <div class="sec-head"><h2>Teknik Yetkinlikler</h2><div class="sec-line"></div></div>
-        <div class="skill-2col">
-          <div class="skill-row"><span class="skill-nm">MATLAB</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div></div>
-          <div class="skill-row"><span class="skill-nm">3D Baskı / FDM / SLA</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
-          <div class="skill-row"><span class="skill-nm">Mekanik Karakterizasyon</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
-          <div class="skill-row"><span class="skill-nm">MRI Görüntü İşleme</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
-          <div class="skill-row"><span class="skill-nm">Biyomekanik Analiz</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
-          <div class="skill-row"><span class="skill-nm">Tıbbi Cihaz Kalibrasyonu</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
-          <div class="skill-row"><span class="skill-nm">Veri Analizi (Excel)</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
-          <div class="skill-row"><span class="skill-nm">CAD / Prototipleme</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
-        </div>
-      </div>
+  </main>
+</div>
 
-    </main>
-  </div><!-- .page -->
-</div><!-- .screen-wrap -->
+<div class="glow-h"></div>
+
+<div class="cv-footer">
+  <div class="cv-footer-name">Melis Pamir · CV</div>
+  <div class="cv-footer-note">rushwanted.github.io/melispamir · 2025</div>
+</div>
 
 <script>
-// ── BG CANVAS (screen) ──
+// ── BG CANVAS — light, eye-friendly on white ──
 (function(){
-  const cv=document.getElementById('bg-cv');
-  if(!cv)return;
+  const cv=document.getElementById('bg-canvas');
   const ctx=cv.getContext('2d');
   function sz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
   sz(); window.addEventListener('resize',sz);
-  const N=80;
+  const N=55;
   const pts=Array.from({length:N},()=>({
-    x:Math.random()*cv.width, y:Math.random()*cv.height,
-    vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, r:1.5+Math.random()*2
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    vx:(Math.random()-.5)*.2,
+    vy:(Math.random()-.5)*.2,
+    r:1+Math.random()*1.6
   }));
   function draw(){
     ctx.clearRect(0,0,cv.width,cv.height);
-    for(let i=0;i<N;i++){
-      for(let j=i+1;j<N;j++){
-        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-        if(d<130){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(0,181,172,${(1-d/130)*.1})`;ctx.lineWidth=.6;ctx.stroke();}
+    for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<130){
+        ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(0,137,123,${(1-d/130)*.05})`;ctx.lineWidth=.6;ctx.stroke();
       }
     }
     pts.forEach(p=>{
       ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(0,181,172,0.35)';ctx.fill();
+      ctx.fillStyle='rgba(0,137,123,0.18)';ctx.fill();
       p.x+=p.vx;p.y+=p.vy;
       if(p.x<0||p.x>cv.width)p.vx*=-1;
       if(p.y<0||p.y>cv.height)p.vy*=-1;
@@ -539,50 +583,268 @@
   draw();
 })();
 
-// ── SIDEBAR CANVAS (DNA strand) ──
+// ── SIDEBAR DNA ──
 (function(){
-  const cv=document.getElementById('sb-cv');
-  if(!cv)return;
+  const cv=document.getElementById('sb-dna');
   const ctx=cv.getContext('2d');
   function sz(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}
   sz(); window.addEventListener('resize',sz);
   let t=0;
   function draw(){
     ctx.clearRect(0,0,cv.width,cv.height);
-    const cx=cv.width/2, steps=120, h=cv.height;
-    ctx.lineWidth=1.2;
-    // strand 1
-    ctx.beginPath();
-    for(let i=0;i<=steps;i++){
-      const y=(i/steps)*h;
-      const x=cx+Math.sin(i/steps*Math.PI*6+t)*28;
-      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    const cx=cv.width/2,h=cv.height,steps=100;
+    for(let strand=0;strand<2;strand++){
+      ctx.beginPath();
+      for(let i=0;i<=steps;i++){
+        const y=(i/steps)*h;
+        const x=cx+Math.sin(i/steps*Math.PI*7+(strand===0?t:t+Math.PI))*22;
+        i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle=strand===0?'rgba(0,212,200,0.28)':'rgba(0,168,158,0.18)';
+      ctx.lineWidth=1;ctx.stroke();
     }
-    ctx.strokeStyle='rgba(0,181,172,0.35)';ctx.stroke();
-    // strand 2
-    ctx.beginPath();
-    for(let i=0;i<=steps;i++){
-      const y=(i/steps)*h;
-      const x=cx+Math.sin(i/steps*Math.PI*6+t+Math.PI)*28;
-      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-    }
-    ctx.strokeStyle='rgba(0,120,114,0.25)';ctx.stroke();
-    // rungs
-    for(let i=0;i<18;i++){
-      const frac=(i/18);
-      const y=frac*h;
-      const x1=cx+Math.sin(frac*Math.PI*6+t)*28;
-      const x2=cx+Math.sin(frac*Math.PI*6+t+Math.PI)*28;
+    for(let i=0;i<20;i++){
+      const frac=i/20,y=frac*h;
+      const x1=cx+Math.sin(frac*Math.PI*7+t)*22;
+      const x2=cx+Math.sin(frac*Math.PI*7+t+Math.PI)*22;
       ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);
-      ctx.strokeStyle='rgba(0,181,172,0.15)';ctx.lineWidth=.8;ctx.stroke();
-      ctx.beginPath();ctx.arc(x1,y,2.5,0,Math.PI*2);ctx.fillStyle='rgba(0,181,172,0.5)';ctx.fill();
-      ctx.beginPath();ctx.arc(x2,y,2.5,0,Math.PI*2);ctx.fillStyle='rgba(0,120,114,0.4)';ctx.fill();
+      ctx.strokeStyle='rgba(0,212,200,0.09)';ctx.lineWidth=.7;ctx.stroke();
+      [x1,x2].forEach((x,si)=>{
+        ctx.beginPath();ctx.arc(x,y,1.8,0,Math.PI*2);
+        ctx.fillStyle=si===0?'rgba(0,212,200,0.4)':'rgba(127,255,212,0.28)';ctx.fill();
+      });
     }
-    t+=0.012;
+    t+=0.01;
     requestAnimationFrame(draw);
   }
   draw();
 })();
+
+// ── SCROLL PROGRESS ──
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  document.getElementById('sprog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+
+// ── CURSOR ──
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;});
+(function loop(){
+  rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;
+  cur.style.left=cx+'px';cur.style.top=cy+'px';
+  ring.style.left=(rx-13)+'px';ring.style.top=(ry-13)+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.2)';ring.style.width='42px';ring.style.height='42px';ring.style.borderColor='rgba(0,137,123,.7)';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='26px';ring.style.height='26px';ring.style.borderColor='rgba(0,137,123,.45)';});
+});
+
+// ── 3D CARD TILT ──
+document.querySelectorAll('.exp-card,.proj-card,.skill-row,.edu-item').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(600px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateZ(3px)`;
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='';});
+});
+
+// ── CARDIAC BIOSENSOR MONITOR ──
+(function(){
+  const canvas = document.getElementById('ecg-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize(){canvas.width=canvas.offsetWidth||260;canvas.height=62;}
+  resize();
+  window.addEventListener('resize',resize);
+
+  const W = ()=>canvas.width, H = ()=>canvas.height;
+  const MID_N = ()=>H()*0.52;    // normal baseline center
+  const MID_E = ()=>H()*0.42;    // elevated baseline
+
+  /* ── ECG WAVEFORM FUNCTIONS ── */
+  function normalPt(ph){
+    const m=MID_N();
+    if(ph>.05&&ph<.15) return m-Math.sin((ph-.05)/.1*Math.PI)*3.8;
+    if(ph>.22&&ph<.24) return m+2.5;
+    if(ph>.24&&ph<.285){const t=(ph-.24)/.045;return m-Math.sin(t*Math.PI)*28;}
+    if(ph>.285&&ph<.31) return m+4.5;
+    if(ph>.38&&ph<.53) return m-Math.sin((ph-.38)/.15*Math.PI)*7.5;
+    return m;
+  }
+
+  function elevatedPt(ph){
+    const m=MID_E();
+    const ELEV=9;
+    if(ph>.05&&ph<.14) return m-Math.sin((ph-.05)/.09*Math.PI)*3.2;
+    if(ph>.21&&ph<.235) return m+2;
+    if(ph>.235&&ph<.285){const t=(ph-.235)/.05;return m-Math.sin(t*Math.PI)*22;}
+    if(ph>.285&&ph<.30) return m-2;
+    // ST elevation: segment stays elevated
+    if(ph>.30&&ph<.40) return m-ELEV*(0.7+Math.sin((ph-.30)/.10*Math.PI)*0.3);
+    // Broad T wave following elevation
+    if(ph>.40&&ph<.58) return m-ELEV-Math.sin((ph-.40)/.18*Math.PI)*11;
+    return m;
+  }
+
+  /* ── STATE MACHINE ── */
+  // States: 0=normal, 1=pre-alert (rising), 2=alert (ST elevation), 3=recovery
+  let state = 0;
+  let stateTimer = 0;
+  const STATE_DUR = [5200, 1800, 2800, 2200]; // ms each state
+
+  /* ── DATA BUFFER ── */
+  let buf = [];
+  let phase = 0;
+  let lastTime = performance.now();
+  let alertElem = document.getElementById('bio-alert');
+  let alertTxt   = document.getElementById('bio-alert-txt');
+  let riskFill   = document.getElementById('bio-risk-fill');
+  let riskPct    = document.getElementById('bio-risk-pct');
+  let elBpm      = document.getElementById('bv-bpm');
+  let elSpo2     = document.getElementById('bv-spo2');
+  let elTni      = document.getElementById('bv-tni');
+  let elBp       = document.getElementById('bv-bp');
+  let elSync     = document.getElementById('bio-sync');
+
+  /* ── VITALS by state ── */
+  const VITALS = [
+    {bpm:72,  spo2:97, tni:.01, sbp:118,dbp:76, risk:18,  riskLbl:'LOW',     cls:''},
+    {bpm:84,  spo2:95, tni:.05, sbp:132,dbp:84, risk:54,  riskLbl:'MODERATE',cls:'medium'},
+    {bpm:101, spo2:91, tni:.18, sbp:148,dbp:94, risk:87,  riskLbl:'HIGH',    cls:'high'},
+    {bpm:78,  spo2:95, tni:.06, sbp:124,dbp:80, risk:32,  riskLbl:'LOW',     cls:''},
+  ];
+  // Add small noise to vitals
+  function jitter(v,amt){return (v+((Math.random()-.5)*2*amt)).toFixed(2);}
+
+  let lastVitalUpdate = 0;
+
+  function updateVitals(now){
+    if(now-lastVitalUpdate<900) return;
+    lastVitalUpdate = now;
+    const v = VITALS[state];
+    const isDanger = state===2;
+    elBpm.textContent  = (v.bpm + Math.round((Math.random()-.5)*3)) + ' BPM';
+    elSpo2.textContent = (v.spo2 + Math.round((Math.random()-.5)*1)) + ' %';
+    elTni.textContent  = (+jitter(v.tni, v.tni*.12)).toFixed(2) + ' ng/mL';
+    elBp.textContent   = (v.sbp+Math.round((Math.random()-.5)*4))+'/'+
+                         (v.dbp+Math.round((Math.random()-.5)*3));
+    [elBpm,elSpo2,elTni,elBp].forEach(el=>{
+      el.classList.toggle('danger', isDanger);
+    });
+    riskFill.style.width = v.risk+'%';
+    riskFill.className = 'bio-risk-fill'+(v.cls?' '+v.cls:'');
+    riskPct.style.color = isDanger?'#FF5722':'rgba(0,212,200,.75)';
+    riskPct.textContent = v.risk+'% — '+v.riskLbl;
+    // Alert
+    if(state===2){
+      alertTxt.textContent = 'ST-ELEVATION · ARRHYTHMIA RISK';
+      alertElem.classList.add('visible');
+      elSync.style.color = '#FF5722';
+      elSync.textContent = '⚠ ALERT';
+    } else if(state===1){
+      alertTxt.textContent = 'ANOMALY DETECTED — MONITORING';
+      alertElem.classList.add('visible');
+      elSync.style.color = '#FFB300';
+      elSync.textContent = '◈ WATCH';
+    } else {
+      alertElem.classList.remove('visible');
+      elSync.style.color = 'rgba(0,212,200,.4)';
+      elSync.textContent = '◈ SYNC';
+    }
+  }
+
+  /* ── DRAW ── */
+  function draw(now){
+    const dt = now - lastTime; lastTime = now;
+    stateTimer += dt;
+    if(stateTimer >= STATE_DUR[state]){
+      stateTimer = 0;
+      state = (state+1)%4;
+    }
+
+    // How far through current state (0-1)
+    const stFrac = stateTimer / STATE_DUR[state];
+    // Blend between normal and elevated
+    const blend = state===0 ? 0 :
+                  state===1 ? stFrac :          // rising
+                  state===2 ? 1 :               // full elevation
+                  1-stFrac;                     // recovery
+
+    // Heartbeat speed: faster when elevated
+    const bps = (VITALS[state].bpm/60)*0.0018;
+    phase += bps * dt;
+    if(phase>1) phase-=1;
+
+    // Sample next point
+    const nPt = normalPt(phase);
+    const ePt = elevatedPt(phase);
+    const pt  = nPt*(1-blend) + ePt*blend;
+
+    buf.push(pt);
+    if(buf.length > W()) buf.shift();
+
+    // Render
+    ctx.clearRect(0,0,W(),H());
+
+    // Subtle grid
+    ctx.strokeStyle='rgba(0,212,200,0.04)';ctx.lineWidth=.5;
+    for(let gx=0;gx<W();gx+=20){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H());ctx.stroke();}
+    for(let gy=0;gy<H();gy+=12){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W(),gy);ctx.stroke();}
+
+    // ECG line color by blend
+    const r = Math.round(0*(1-blend)+255*blend);
+    const g = Math.round(212*(1-blend)+87*blend);
+    const b = Math.round(200*(1-blend)+34*blend);
+    const ecgColor = `rgb(${r},${g},${b})`;
+    const glowColor = blend>0.5?'rgba(255,87,34,.35)':'rgba(0,212,200,.35)';
+
+    ctx.beginPath();
+    ctx.strokeStyle = ecgColor;
+    ctx.lineWidth = 1.4;
+    ctx.shadowColor = glowColor;
+    ctx.shadowBlur = 5;
+    for(let i=0;i<buf.length;i++){
+      i===0 ? ctx.moveTo(i,buf[i]) : ctx.lineTo(i,buf[i]);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Cursor dot at leading edge
+    if(buf.length>0){
+      const cy = buf[buf.length-1];
+      ctx.beginPath();
+      ctx.arc(buf.length-1,cy,2.5,0,Math.PI*2);
+      ctx.fillStyle = ecgColor;
+      ctx.shadowColor = glowColor;
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    updateVitals(now);
+    requestAnimationFrame(draw);
+  }
+
+  requestAnimationFrame(draw);
+})();
+
+// ── CLICK RIPPLE — soft on white ──
+document.addEventListener('click',e=>{
+  const b=document.createElement('div');
+  b.style.cssText=`position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:60px;height:60px;border-radius:50%;transform:translate(-50%,-50%) scale(0);border:1.5px solid rgba(0,137,123,.5);animation:rippleOut .6s ease forwards;pointer-events:none;z-index:99999;`;
+  if(!document.querySelector('#rippleKf')){
+    const s=document.createElement('style');s.id='rippleKf';
+    s.textContent='@keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:.8}100%{transform:translate(-50%,-50%) scale(2.8);opacity:0}}';
+    document.head.appendChild(s);
+  }
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),700);
+});
 </script>
 </body>
 </html>
