@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Melis Pamir — CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --teal:#00B5AC; --teal2:#007A74; --teal-lo:rgba(0,181,172,.08);
+      --dark:#071824; --mid:#224455; --sub:#3D6070; --muted:#7FA0AD;
+      --brd:#C8DDE5; --bg:#EFF6F8; --white:#fff;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
+    body{
+      font-family:'DM Sans',sans-serif;
+      background:var(--bg);
+      color:var(--dark);
+      font-size:12.5px;
+      line-height:1.65;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+
+    /* ── SCREEN WRAPPER ── */
+    .screen-wrap{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:2.5rem 1.5rem 4rem;
+      position:relative;
+    }
+
+    /* BG canvas */
+    #bg-cv{
+      position:fixed;inset:0;
+      width:100%;height:100%;
+      pointer-events:none;z-index:0;
+    }
+
+    /* top bar */
+    .top-bar{
+      position:relative;z-index:10;
+      display:flex;align-items:center;justify-content:space-between;
+      width:100%;max-width:860px;margin-bottom:1.8rem;
+    }
+    .top-bar-title{
+      font-family:'Syne',sans-serif;font-weight:800;
+      font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--teal);
+    }
+    .print-btn{
+      padding:.55rem 1.5rem;
+      background:var(--teal);color:#fff;
+      font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;
+      letter-spacing:.08em;text-transform:uppercase;
+      border:none;cursor:pointer;border-radius:2px;
+      box-shadow:0 4px 20px rgba(0,181,172,.3);
+      transition:background .2s,transform .15s;
+    }
+    .print-btn:hover{background:var(--teal2);transform:translateY(-1px);}
+    .print-btn:active{transform:translateY(0);}
+
+    /* ── PAGE ── */
+    .page{
+      position:relative;z-index:10;
+      width:100%;max-width:860px;
+      background:var(--white);
+      box-shadow:0 8px 60px rgba(0,0,0,.12);
+      display:grid;
+      grid-template-columns:230px 1fr;
+      overflow:hidden;
+    }
+
+    /* ── SIDEBAR ── */
+    .sb{
+      background:var(--dark);
+      padding:0;
+      display:flex;flex-direction:column;
+      position:relative;overflow:hidden;
+    }
+    .sb-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.45;}
+    .sb-inner{position:relative;z-index:1;padding:2.2rem 1.6rem;display:flex;flex-direction:column;gap:1.7rem;}
+
+    /* photo */
+    .photo-wrap{display:flex;flex-direction:column;align-items:center;gap:.9rem;}
+    .photo-ring{
+      width:116px;height:116px;border-radius:50%;
+      border:2px solid var(--teal);
+      padding:3px;
+      box-shadow:0 0 0 6px rgba(0,181,172,.12),0 0 30px rgba(0,181,172,.2);
+      position:relative;
+    }
+    .photo-ring::after{
+      content:'';position:absolute;inset:-8px;border-radius:50%;
+      border:1px dashed rgba(0,181,172,.3);
+      animation:spinR 18s linear infinite;
+    }
+    @keyframes spinR{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    .cv-photo{
+      width:100%;height:100%;border-radius:50%;
+      object-fit:cover;object-position:center top;display:block;
+    }
+    .cv-photo-ph{
+      width:110px;height:110px;border-radius:50%;
+      background:rgba(0,181,172,.15);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;
+      color:var(--teal);
+    }
+    .sb-name{
+      font-family:'Syne',sans-serif;font-weight:800;
+      font-size:1.15rem;line-height:1.1;letter-spacing:-.01em;
+      color:#fff;text-align:center;
+    }
+    .sb-role{
+      font-size:.7rem;color:var(--teal);text-align:center;
+      letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+      margin-top:.2rem;
+    }
+
+    /* divider */
+    .sb-div{height:1px;background:rgba(255,255,255,.09);}
+
+    /* section label */
+    .sb-lbl{
+      font-family:'Syne',sans-serif;font-weight:700;
+      font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+      color:var(--teal);margin-bottom:.85rem;
+    }
+
+    /* contact */
+    .clist{display:flex;flex-direction:column;gap:.5rem;}
+    .ci{display:flex;align-items:flex-start;gap:.55rem;}
+    .ci-ico{
+      width:19px;height:19px;flex-shrink:0;margin-top:1px;
+      background:rgba(0,181,172,.15);border-radius:2px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:.58rem;font-family:'Syne',sans-serif;font-weight:700;color:var(--teal);
+    }
+    .ci-txt{color:rgba(255,255,255,.7);font-size:.73rem;line-height:1.45;word-break:break-word;}
+    .ci-txt a{color:var(--teal);text-decoration:none;}
+
+    /* languages */
+    .llist{display:flex;flex-direction:column;gap:.65rem;}
+    .li-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.28rem;}
+    .li-name{color:rgba(255,255,255,.82);font-size:.78rem;font-weight:500;}
+    .li-lvl{color:var(--teal);font-size:.66rem;letter-spacing:.06em;}
+    .li-bg{height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+    .li-bar{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal2));border-radius:2px;}
+
+    /* skill chips */
+    .chip-wrap{display:flex;flex-wrap:wrap;gap:.38rem;}
+    .chip{
+      padding:.2rem .52rem;
+      background:rgba(0,181,172,.13);border:1px solid rgba(0,181,172,.28);
+      color:rgba(255,255,255,.78);font-size:.65rem;border-radius:2px;
+    }
+
+    /* tool chips */
+    .tool-chip{
+      padding:.2rem .52rem;
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+      color:rgba(255,255,255,.6);font-size:.63rem;border-radius:2px;
+    }
+
+    /* ── MAIN ── */
+    .main{padding:2.2rem 2rem;display:flex;flex-direction:column;gap:1.7rem;}
+
+    /* about highlight */
+    .about-hl{
+      background:var(--teal-lo);border-left:3px solid var(--teal);
+      padding:.85rem 1rem;
+      font-size:.82rem;color:var(--mid);line-height:1.78;font-style:italic;
+      position:relative;overflow:hidden;
+    }
+    .about-hl::after{
+      content:'"';position:absolute;right:.8rem;top:-.4rem;
+      font-size:4rem;color:rgba(0,181,172,.1);font-family:'Syne',sans-serif;font-weight:800;
+      line-height:1;pointer-events:none;
+    }
+
+    /* section */
+    .sec-head{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;}
+    .sec-head h2{
+      font-family:'Syne',sans-serif;font-weight:800;
+      font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dark);
+      white-space:nowrap;
+    }
+    .sec-line{flex:1;height:1px;background:var(--brd);}
+
+    /* experience entry */
+    .exp{margin-bottom:1.15rem;padding-bottom:1.15rem;border-bottom:1px solid #E5EFF3;}
+    .exp:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+    .exp-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.18rem;}
+    .exp-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;color:var(--dark);}
+    .exp-date{font-size:.68rem;color:var(--muted);white-space:nowrap;flex-shrink:0;letter-spacing:.04em;margin-top:.1rem;}
+    .exp-org{font-size:.78rem;color:var(--teal);font-weight:500;margin-bottom:.15rem;}
+    .exp-meta{font-size:.68rem;color:var(--muted);margin-bottom:.38rem;letter-spacing:.03em;}
+    .exp-ul{padding-left:1rem;}
+    .exp-ul li{font-size:.78rem;color:var(--mid);line-height:1.7;margin-bottom:.18rem;}
+
+    /* education entry */
+    .edu{display:grid;grid-template-columns:10px 1fr;gap:.8rem;margin-bottom:1rem;align-items:start;}
+    .edu:last-child{margin-bottom:0;}
+    .edu-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);margin-top:.3rem;flex-shrink:0;box-shadow:0 0 0 3px rgba(0,181,172,.18);}
+    .edu-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.86rem;color:var(--dark);line-height:1.2;margin-bottom:.1rem;}
+    .edu-org{font-size:.78rem;color:var(--teal);font-weight:500;margin-bottom:.12rem;}
+    .edu-meta{font-size:.68rem;color:var(--muted);letter-spacing:.04em;margin-bottom:.3rem;}
+    .edu-note{font-size:.75rem;color:var(--sub);}
+
+    /* project card */
+    .proj{
+      background:var(--bg);border:1px solid var(--brd);
+      border-left:3px solid var(--teal);
+      padding:.85rem 1rem;margin-bottom:.85rem;
+      position:relative;overflow:hidden;
+    }
+    .proj:last-child{margin-bottom:0;}
+    .proj::before{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(0,181,172,.04),transparent 60%);
+      pointer-events:none;
+    }
+    .proj-badge{
+      display:inline-block;padding:.1rem .48rem;
+      background:rgba(0,181,172,.15);color:var(--teal);
+      font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+      font-weight:700;margin-bottom:.3rem;border-radius:1px;
+    }
+    .proj-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:var(--dark);margin-bottom:.28rem;}
+    .proj-desc{font-size:.78rem;color:var(--mid);line-height:1.72;}
+
+    /* skills grid */
+    .skill-2col{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;}
+    .skill-row{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.38rem .6rem;background:var(--bg);border:1px solid var(--brd);
+    }
+    .skill-nm{font-size:.77rem;color:var(--dark);}
+    .skill-dots{display:flex;gap:3px;}
+    .dot{width:7px;height:7px;border-radius:50%;background:#D8E8EC;}
+    .dot.on{background:var(--teal);}
+
+    /* cert */
+    .cert{
+      display:flex;align-items:flex-start;gap:.7rem;
+      padding:.7rem .85rem;background:var(--bg);border:1px solid var(--brd);
+      margin-bottom:.5rem;
+    }
+    .cert:last-child{margin-bottom:0;}
+    .cert-ico{
+      width:22px;height:22px;background:var(--teal-lo);border:1px solid rgba(0,181,172,.3);
+      border-radius:2px;display:flex;align-items:center;justify-content:center;
+      font-size:.65rem;font-family:'Syne',sans-serif;font-weight:700;color:var(--teal);flex-shrink:0;
+    }
+    .cert-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;color:var(--dark);margin-bottom:.08rem;}
+    .cert-org{font-size:.7rem;color:var(--muted);}
+
+    /* ── PRINT ── */
+    @media print{
+      #bg-cv,.screen-wrap>.top-bar,.print-btn{display:none!important;}
+      body{background:#fff;}
+      .screen-wrap{padding:0;}
+      .page{box-shadow:none;max-width:100%;width:100%;}
+      @page{margin:0;size:A4;}
+      .sb-canvas{display:none!important;}
+      .photo-ring::after{display:none!important;}
+      .proj::before{display:none!important;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Full-page bg canvas (screen only) -->
+<canvas id="bg-cv"></canvas>
+
+<div class="screen-wrap">
+  <div class="top-bar">
+    <div class="top-bar-title">Melis Pamir — Curriculum Vitae</div>
+    <button class="print-btn" onclick="window.print()">↓ PDF Olarak İndir</button>
+  </div>
+
+  <div class="page">
+
+    <!-- ══════════════════ SIDEBAR ══════════════════ -->
+    <aside class="sb">
+      <canvas class="sb-canvas" id="sb-cv"></canvas>
+      <div class="sb-inner">
+
+        <!-- Photo + Name -->
+        <div class="photo-wrap">
+          <div class="photo-ring">
+            <img src="photo.jpg" alt="Melis Pamir" class="cv-photo"
+              onerror="this.parentElement.outerHTML='<div class=\'cv-photo-ph\'>MP</div>'"/>
+          </div>
+          <div>
+            <div class="sb-name">Melis Pamir</div>
+            <div class="sb-role">BE · Biomedical &amp; Mechanical</div>
+          </div>
+        </div>
+
+        <div class="sb-div"></div>
+
+        <!-- Contact -->
+        <div>
+          <div class="sb-lbl">İletişim</div>
+          <div class="clist">
+            <div class="ci">
+              <div class="ci-ico">@</div>
+              <div class="ci-txt"><a href="mailto:pamirmeliss@gmail.com">pamirmeliss@gmail.com</a></div>
+            </div>
+            <div class="ci">
+              <div class="ci-ico">☎</div>
+              <div class="ci-txt">+39 351 559 8102</div>
+            </div>
+            <div class="ci">
+              <div class="ci-ico">📍</div>
+              <div class="ci-txt">Milano, İtalya</div>
+            </div>
+            <div class="ci">
+              <div class="ci-ico">in</div>
+              <div class="ci-txt"><a href="https://linkedin.com/in/melis-pamir-642112261" target="_blank">linkedin.com/in/melis-pamir</a></div>
+            </div>
+            <div class="ci">
+              <div class="ci-ico">ig</div>
+              <div class="ci-txt"><a href="https://instagram.com/pamirmeliss" target="_blank">@pamirmeliss</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-div"></div>
+
+        <!-- Languages -->
+        <div>
+          <div class="sb-lbl">Diller</div>
+          <div class="llist">
+            <div>
+              <div class="li-top"><span class="li-name">Türkçe</span><span class="li-lvl">Ana Dil</span></div>
+              <div class="li-bg"><div class="li-bar" style="width:100%"></div></div>
+            </div>
+            <div>
+              <div class="li-top"><span class="li-name">İtalyanca</span><span class="li-lvl">C2</span></div>
+              <div class="li-bg"><div class="li-bar" style="width:95%"></div></div>
+            </div>
+            <div>
+              <div class="li-top"><span class="li-name">İngilizce</span><span class="li-lvl">C1</span></div>
+              <div class="li-bg"><div class="li-bar" style="width:85%"></div></div>
+            </div>
+            <div>
+              <div class="li-top"><span class="li-name">Almanca</span><span class="li-lvl">B2</span></div>
+              <div class="li-bg"><div class="li-bar" style="width:65%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-div"></div>
+
+        <!-- Technical Skills -->
+        <div>
+          <div class="sb-lbl">Teknik Beceriler</div>
+          <div class="chip-wrap">
+            <span class="chip">MATLAB</span>
+            <span class="chip">3D Baskı / FDM / SLA</span>
+            <span class="chip">Mekanik Karakterizasyon</span>
+            <span class="chip">MRI Görüntü İşleme</span>
+            <span class="chip">Biyomekanik Analiz</span>
+            <span class="chip">Tıbbi Cihaz Kalibrasyonu</span>
+            <span class="chip">Veri Analizi</span>
+            <span class="chip">Prototipleme</span>
+            <span class="chip">CAD</span>
+          </div>
+        </div>
+
+        <div class="sb-div"></div>
+
+        <!-- Tools -->
+        <div>
+          <div class="sb-lbl">Yazılım &amp; Araçlar</div>
+          <div class="chip-wrap">
+            <span class="tool-chip">MATLAB</span>
+            <span class="tool-chip">MS Excel</span>
+            <span class="tool-chip">3D Printing</span>
+            <span class="tool-chip">MRI Segmentation</span>
+            <span class="tool-chip">Medical Dosimetry</span>
+            <span class="tool-chip">CAD</span>
+            <span class="tool-chip">AutoCAD</span>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ══════════════════ MAIN ══════════════════ -->
+    <main class="main">
+
+      <!-- Hakkımda -->
+      <div class="about-hl">
+        Politecnico di Milano'da Mühendislik lisans eğitimimi sürdüren, biyomekanik ve tıbbi görüntü işleme alanlarında araştırma ve uluslararası saha deneyimine sahip bir mühendislik öğrencisiyim. 3D baskı malzemelerinin mekanik karakterizasyonu ve MATLAB tabanlı MRI beyin görüntüsü işleme üzerine aktif projeler yürütmekteyim. Almanya ve İtalya'daki stajlarımla çok kültürlü ortamlarda deneyim kazandım; dört dilde ileri seviyede iletişim kuruyorum.
+      </div>
+
+      <!-- Eğitim -->
+      <div>
+        <div class="sec-head"><h2>Eğitim</h2><div class="sec-line"></div></div>
+
+        <div class="edu">
+          <div class="edu-dot"></div>
+          <div>
+            <div class="edu-title">Bachelor of Engineering — Biyomedikal &amp; Mekanik Mühendislik</div>
+            <div class="edu-org">Politecnico di Milano</div>
+            <div class="edu-meta">2022 — Devam ediyor &nbsp;·&nbsp; Milano, İtalya</div>
+            <div class="edu-note">Biyomekanik · Tıbbi Görüntü İşleme · 3D Baskı ve Prototipleme</div>
+          </div>
+        </div>
+
+        <div class="edu">
+          <div class="edu-dot"></div>
+          <div>
+            <div class="edu-title">Lise</div>
+            <div class="edu-org">Liceo Italiano di Istanbul</div>
+            <div class="edu-meta">2017 — 2022 &nbsp;·&nbsp; İstanbul, Türkiye</div>
+          </div>
+        </div>
+
+        <div class="edu">
+          <div class="edu-dot"></div>
+          <div>
+            <div class="edu-title">Müzik Bölümü</div>
+            <div class="edu-org">İstanbul Üniversitesi Devlet Konservatuvarı</div>
+            <div class="edu-meta">2013 — 2017 &nbsp;·&nbsp; İstanbul, Türkiye</div>
+            <div class="edu-note">Üflemeli Çalgılar Anasanat Dalı &nbsp;·&nbsp; Müzik Teorisi</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deneyim -->
+      <div>
+        <div class="sec-head"><h2>Deneyim</h2><div class="sec-line"></div></div>
+
+        <div class="exp">
+          <div class="exp-hd">
+            <div class="exp-title">Medical Imaging Technician</div>
+            <div class="exp-date">Tem 2024 — Kas 2024</div>
+          </div>
+          <div class="exp-org">IBA Dosimetry</div>
+          <div class="exp-meta">Stajyer &nbsp;·&nbsp; Almanya &nbsp;·&nbsp; Ofiste</div>
+          <ul class="exp-ul">
+            <li>Tıbbi dozimetri cihazlarının kalibrasyonu ve teknik bakım süreçlerinde aktif rol alındı.</li>
+            <li>MRI ve radyasyon dozimetri sistemleriyle teknik ölçüm süreçleri yürütüldü.</li>
+            <li>Microsoft Excel kullanılarak ölçüm verilerinin analizi ve teknik raporlama gerçekleştirildi.</li>
+            <li>Uluslararası mühendislik ekibiyle İngilizce ve Almanca iletişim kurularak proje süreçlerine katkı sağlandı.</li>
+          </ul>
+        </div>
+
+        <div class="exp">
+          <div class="exp-hd">
+            <div class="exp-title">Customer Service Consultant</div>
+            <div class="exp-date">Tem 2021 — Ağu 2021</div>
+          </div>
+          <div class="exp-org">The Italian Sea Group S.p.A</div>
+          <div class="exp-meta">Stajyer &nbsp;·&nbsp; Carrara, Toskana, İtalya &nbsp;·&nbsp; Ofiste</div>
+          <ul class="exp-ul">
+            <li>Uluslararası müşterilerle İtalyanca ve İngilizce iletişim kurularak müşteri ilişkileri yönetildi.</li>
+            <li>Çok kültürlü iş ortamında kişilerarası iletişim ve müzakere becerileri pekiştirildi.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Araştırma & Projeler -->
+      <div>
+        <div class="sec-head"><h2>Araştırma &amp; Projeler</h2><div class="sec-line"></div></div>
+
+        <div class="proj">
+          <div class="proj-badge">Tez Projesi</div>
+          <div class="proj-title">3D Baskılı Malzemelerin Mekanik Karakterizasyonu</div>
+          <div class="proj-desc">Fonksiyonel biyomekanik prototipler için 3D baskılı malzemelerin (FDM / SLA) yorulma dayanımı analizi. Farklı malzeme türleri ve baskı parametrelerinin mekanik performans üzerindeki etkisi sistematik olarak incelenmektedir. Amaç: klinik kullanıma uygun, optimize edilmiş biyomedikal prototipler geliştirmek.</div>
+        </div>
+
+        <div class="proj">
+          <div class="proj-badge">Aktif Proje</div>
+          <div class="proj-title">MRI Beyin Görüntüsü İşleme &amp; Ventriküler Segmentasyon</div>
+          <div class="proj-desc">MATLAB kullanılarak MRI beyin görüntüsü işleme pipeline'ı geliştirilmekte; lateral ventriküllerin yarı otomatik segmentasyonu için özel algoritma tasarlanmaktadır. Klinik tanı süreçlerini hızlandırmaya yönelik, ölçülebilir ve tekrarlanabilir bir segmentasyon yöntemi hedeflenmektedir.</div>
+        </div>
+      </div>
+
+      <!-- Teknik Yetkinlikler (detaylı) -->
+      <div>
+        <div class="sec-head"><h2>Teknik Yetkinlikler</h2><div class="sec-line"></div></div>
+        <div class="skill-2col">
+          <div class="skill-row"><span class="skill-nm">MATLAB</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div></div>
+          <div class="skill-row"><span class="skill-nm">3D Baskı / FDM / SLA</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span class="skill-nm">Mekanik Karakterizasyon</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span class="skill-nm">MRI Görüntü İşleme</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span class="skill-nm">Biyomekanik Analiz</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span class="skill-nm">Tıbbi Cihaz Kalibrasyonu</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span class="skill-nm">Veri Analizi (Excel)</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></div>
+          <div class="skill-row"><span class="skill-nm">CAD / Prototipleme</span><div class="skill-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></div>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- .page -->
+</div><!-- .screen-wrap -->
+
+<script>
+// ── BG CANVAS (screen) ──
+(function(){
+  const cv=document.getElementById('bg-cv');
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  function sz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
+  sz(); window.addEventListener('resize',sz);
+  const N=80;
+  const pts=Array.from({length:N},()=>({
+    x:Math.random()*cv.width, y:Math.random()*cv.height,
+    vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, r:1.5+Math.random()*2
+  }));
+  function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(0,181,172,${(1-d/130)*.1})`;ctx.lineWidth=.6;ctx.stroke();}
+      }
+    }
+    pts.forEach(p=>{
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(0,181,172,0.35)';ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>cv.width)p.vx*=-1;
+      if(p.y<0||p.y>cv.height)p.vy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── SIDEBAR CANVAS (DNA strand) ──
+(function(){
+  const cv=document.getElementById('sb-cv');
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  function sz(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}
+  sz(); window.addEventListener('resize',sz);
+  let t=0;
+  function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    const cx=cv.width/2, steps=120, h=cv.height;
+    ctx.lineWidth=1.2;
+    // strand 1
+    ctx.beginPath();
+    for(let i=0;i<=steps;i++){
+      const y=(i/steps)*h;
+      const x=cx+Math.sin(i/steps*Math.PI*6+t)*28;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle='rgba(0,181,172,0.35)';ctx.stroke();
+    // strand 2
+    ctx.beginPath();
+    for(let i=0;i<=steps;i++){
+      const y=(i/steps)*h;
+      const x=cx+Math.sin(i/steps*Math.PI*6+t+Math.PI)*28;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle='rgba(0,120,114,0.25)';ctx.stroke();
+    // rungs
+    for(let i=0;i<18;i++){
+      const frac=(i/18);
+      const y=frac*h;
+      const x1=cx+Math.sin(frac*Math.PI*6+t)*28;
+      const x2=cx+Math.sin(frac*Math.PI*6+t+Math.PI)*28;
+      ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);
+      ctx.strokeStyle='rgba(0,181,172,0.15)';ctx.lineWidth=.8;ctx.stroke();
+      ctx.beginPath();ctx.arc(x1,y,2.5,0,Math.PI*2);ctx.fillStyle='rgba(0,181,172,0.5)';ctx.fill();
+      ctx.beginPath();ctx.arc(x2,y,2.5,0,Math.PI*2);ctx.fillStyle='rgba(0,120,114,0.4)';ctx.fill();
+    }
+    t+=0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
