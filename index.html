@@ -4,6 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Melis Pamir — Biomedical Engineer</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23020B18' rx='4'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='14' fill='%2300D4C8'>MP</text></svg>" />
+  <meta name="description" content="Melis Pamir — Biomedical Engineer at Politecnico di Milano. Research in biosensors, medical imaging, and health technologies." />
+  <meta property="og:title" content="Melis Pamir — Biomedical Engineer" />
+  <meta property="og:description" content="Biomedical Engineer at Politecnico di Milano. Research in biosensors, medical imaging, and health technologies." />
+  <meta property="og:image" content="https://rushwanted.github.io/melispamir/photo.jpg" />
+  <meta property="og:url" content="https://rushwanted.github.io/melispamir" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Melis Pamir — Biomedical Engineer" />
+  <meta name="twitter:description" content="Biomedical Engineer at Politecnico di Milano. Research in biosensors, medical imaging, and health technologies." />
+  <meta name="twitter:image" content="https://rushwanted.github.io/melispamir/photo.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
@@ -23,7 +34,88 @@
       --card:     rgba(4,21,37,0.85);
       --brd:      rgba(0,212,200,0.13);
       --brd-hi:   rgba(0,212,200,0.38);
+      --nav-bg:   rgba(2,11,24,.65);
     }
+
+    [data-theme="light"] {
+      --bg:       #F7F9FC;
+      --bg2:      #EBF2F8;
+      --bg3:      #DDE8F2;
+      --teal:     #00A89E;
+      --teal-dim: #007A72;
+      --teal-lo:  rgba(0,168,158,0.10);
+      --teal-md:  rgba(0,168,158,0.20);
+      --aqua:     #007A72;
+      --ice:      #0D2137;
+      --muted:    #3A6080;
+      --text:     #2D4F6B;
+      --card:     rgba(255,255,255,0.92);
+      --brd:      rgba(0,168,158,0.18);
+      --brd-hi:   rgba(0,168,158,0.45);
+      --nav-bg:   rgba(247,249,252,.85);
+    }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position:fixed; top:0; left:0; height:2px; width:0%;
+      background:linear-gradient(90deg,var(--teal),var(--aqua));
+      z-index:9999; transition:width .1s linear;
+      box-shadow:0 0 6px rgba(0,212,200,.5);
+    }
+
+    /* ── BACK TO TOP ── */
+    #back-top {
+      position:fixed; bottom:2rem; right:2rem; z-index:800;
+      width:40px; height:40px;
+      background:var(--teal-lo); border:1px solid var(--brd-hi);
+      color:var(--teal); font-size:1.1rem;
+      display:flex; align-items:center; justify-content:center;
+      cursor:none; opacity:0; pointer-events:none;
+      transition:opacity .3s ease, transform .3s ease, background .2s;
+    }
+    #back-top.visible { opacity:1; pointer-events:auto; }
+    #back-top:hover { background:var(--teal-md); transform:translateY(-4px); }
+
+    /* ── AKTIF NAV ── */
+    .nav-links a.active { color:var(--teal); }
+
+    /* ── PROJE BADGE ── */
+    .proj-badge {
+      display:inline-block; padding:.15rem .55rem; margin-bottom:.7rem;
+      font-size:.6rem; letter-spacing:.14em; text-transform:uppercase;
+      font-family:'Syne',sans-serif; font-weight:700; border-radius:2px;
+    }
+    .proj-badge.active {
+      background:rgba(0,212,200,.12); border:1px solid rgba(0,212,200,.35);
+      color:var(--teal);
+    }
+    .proj-badge.completed {
+      background:rgba(78,128,144,.12); border:1px solid rgba(78,128,144,.3);
+      color:var(--muted);
+    }
+
+    /* ── COPY EMAIL ── */
+    .copy-toast {
+      position:fixed; bottom:5rem; left:50%; transform:translateX(-50%) translateY(10px);
+      background:var(--teal); color:var(--bg); font-family:'Syne',sans-serif;
+      font-size:.7rem; font-weight:700; letter-spacing:.1em;
+      padding:.45rem 1.2rem; opacity:0; pointer-events:none;
+      transition:opacity .25s ease, transform .25s ease;
+      z-index:9999;
+    }
+    .copy-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      display:flex; align-items:center; justify-content:center;
+      width:32px; height:32px;
+      background:var(--teal-lo); border:1px solid var(--brd-hi);
+      border-radius:2px; cursor:none;
+      color:var(--teal); font-size:.9rem;
+      transition:background .2s, border-color .2s, transform .2s;
+      flex-shrink:0; margin-left:.8rem;
+    }
+    .theme-toggle:hover { background:var(--teal-md); transform:scale(1.08); }
     *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
 
@@ -35,6 +127,7 @@
       line-height: 1.7;
       overflow-x: hidden;
       cursor: none;
+      transition: background .4s ease, color .4s ease;
     }
 
     /* grain */
@@ -42,8 +135,9 @@
       content:'';
       position:fixed; inset:0; pointer-events:none; z-index:9000;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
-      opacity:.55;
+      opacity:.55; transition:opacity .4s ease;
     }
+    [data-theme="light"] body::after { opacity:.12; }
 
     /* ── CURSOR ── */
     #cur { width:6px; height:6px; background:var(--teal); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); opacity:.7; }
@@ -54,7 +148,7 @@
       display:flex; align-items:center; justify-content:space-between;
       padding:1.4rem 4rem;
       backdrop-filter:blur(22px);
-      background:rgba(2,11,24,.65);
+      background:var(--nav-bg);
       border-bottom:1px solid var(--brd);
     }
     .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; letter-spacing:.06em; color:var(--teal); text-decoration:none; }
@@ -386,7 +480,8 @@
     }
     .contact-tagline span { color:var(--teal); }
 
-    .contact-links { display:flex; flex-direction:column; gap:1.3rem; }
+    .contact-left { display:flex; flex-direction:column; gap:2rem; }
+    .contact-links { display:flex; flex-direction:column; gap:.75rem; }
     .clink {
       display:flex; align-items:center; gap:1.2rem;
       color:var(--text); text-decoration:none; font-size:.95rem;
@@ -401,8 +496,39 @@
       transition:background .3s ease;
     }
     .clink:hover .clink-icon { background:var(--teal-lo); }
-    .clink-title { font-weight:500; color:var(--ice); font-size:.93rem; }
-    .clink-sub { font-size:.78rem; color:var(--muted); margin-top:.1rem; }
+    .clink-title { font-weight:500; color:var(--ice); font-size:.88rem; }
+    .clink-sub { font-size:.74rem; color:var(--muted); margin-top:.05rem; }
+
+    /* ── CONTACT FORM ── */
+    .contact-form { display:flex; flex-direction:column; gap:.9rem; }
+    .cf-row { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+    .cf-field { display:flex; flex-direction:column; gap:.3rem; }
+    .cf-label {
+      font-family:'Syne',sans-serif; font-size:.58rem; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--muted);
+    }
+    .cf-input, .cf-textarea {
+      background:var(--bg3); border:1px solid var(--brd);
+      color:var(--ice); font-family:'DM Sans',sans-serif; font-size:.88rem;
+      padding:.7rem .9rem; width:100%; outline:none;
+      transition:border-color .2s ease, background .2s ease;
+    }
+    .cf-input:focus, .cf-textarea:focus {
+      border-color:var(--brd-hi); background:var(--bg2);
+    }
+    .cf-input::placeholder, .cf-textarea::placeholder { color:var(--muted); opacity:.6; }
+    .cf-textarea { resize:vertical; min-height:120px; }
+    .cf-submit {
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+      padding:.85rem; background:var(--teal); color:var(--bg);
+      font-family:'Syne',sans-serif; font-weight:700; font-size:.78rem;
+      letter-spacing:.08em; text-transform:uppercase; border:none; cursor:none; width:100%;
+      transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .cf-submit:hover { background:var(--aqua); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,212,200,.28); }
+    .cf-submit:active { transform:translateY(0); }
+    .cf-note { font-size:.7rem; color:var(--muted); text-align:center; margin-top:.2rem; }
+    @media(max-width:640px) { .cf-row { grid-template-columns:1fr; } }
 
     /* ── FOOTER ── */
     footer {
@@ -579,6 +705,15 @@
 </head>
 <body>
 
+<!-- Progress bar -->
+<div id="progress-bar"></div>
+
+<!-- Back to top -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- Copy toast -->
+<div class="copy-toast" id="copy-toast">COPIED!</div>
+
 <!-- Custom cursor -->
 <div id="cur"></div>
 
@@ -618,6 +753,7 @@
       <button class="lang-opt" id="drop-tr" onclick="pickLang('tr')"><span class="fi fi-tr"></span>TR</button>
     </div>
   </div>
+  <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☀</button>
   <button class="nav-ham" id="nav-ham" onclick="toggleMobMenu()">
     <span></span><span></span><span></span>
   </button>
@@ -625,6 +761,7 @@
 
 <!-- ── HERO ── -->
 <section id="hero">
+<canvas id="particle-canvas" style="position:absolute;inset:0;z-index:0;pointer-events:none;"></canvas>
 
   <div class="hero-content">
     <div class="hero-text">
@@ -682,7 +819,7 @@
 
       <div class="about-vis rv">
         <img
-          src="photo.jpg2.jpg"
+          src="photo_jpg2.jpg"
           alt="Melis Pamir"
           class="about-img"
           onerror="this.src='https://placehold.co/300x400/041525/00D4C8?text=Melis+Pamir'"
@@ -848,6 +985,7 @@
 
       <div class="proj-card feat rv">
         <div>
+          <div class="proj-badge active" data-i18n="proj01_status">In Progress</div>
           <div class="proj-num" data-i18n="proj01_num">01 — FEATURED</div>
           <h3 class="proj-title" data-i18n="proj01_title">Cardiac Biosensor Development</h3>
           <p class="proj-desc" data-i18n="proj01_desc">
@@ -863,6 +1001,7 @@
       </div>
 
       <div class="proj-card rv d1">
+        <div class="proj-badge active" data-i18n="proj02_status">In Progress</div>
         <div class="proj-num">02</div>
         <div class="proj-icon">🧠</div>
         <h3 class="proj-title" data-i18n="proj02_title">EEG Signal Processing &amp; BCI</h3>
@@ -873,6 +1012,7 @@
       </div>
 
       <div class="proj-card rv d2">
+        <div class="proj-badge completed" data-i18n="proj03_status">Completed</div>
         <div class="proj-num">03</div>
         <div class="proj-icon">🔬</div>
         <h3 class="proj-title" data-i18n="proj03_title">Microfluidic Chip Design</h3>
@@ -883,6 +1023,7 @@
       </div>
 
       <div class="proj-card rv d1">
+        <div class="proj-badge completed" data-i18n="proj04_status">Completed</div>
         <div class="proj-num">04</div>
         <div class="proj-icon">📊</div>
         <h3 class="proj-title" data-i18n="proj04_title">Medical Image Segmentation</h3>
@@ -893,6 +1034,7 @@
       </div>
 
       <div class="proj-card rv d2">
+        <div class="proj-badge completed" data-i18n="proj05_status">Completed</div>
         <div class="proj-num">05</div>
         <div class="proj-icon">💉</div>
         <h3 class="proj-title" data-i18n="proj05_title">Drug Delivery System Modeling</h3>
@@ -963,39 +1105,74 @@
 <div id="contact">
   <div class="sec-inner">
     <div class="contact-grid">
-      <div>
-        <div class="eyebrow rv" data-i18n="contact_eyebrow">Contact</div>
-        <p class="contact-tagline rv d1" data-i18n-html="contact_tagline">Let's<br><span>work</span><br>together?</p>
+      <!-- LEFT: tagline + quick links -->
+      <div class="contact-left">
+        <div>
+          <div class="eyebrow rv" data-i18n="contact_eyebrow">Contact</div>
+          <p class="contact-tagline rv d1" data-i18n-html="contact_tagline">Let's<br><span>work</span><br>together?</p>
+        </div>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/melis-pamir-642112261/" target="_blank" rel="noopener" class="clink rv">
+            <div class="clink-icon">in</div>
+            <div>
+              <div class="clink-title">LinkedIn</div>
+              <div class="clink-sub" data-i18n="linkedin_sub">Melis Pamir — Connect</div>
+            </div>
+          </a>
+          <a href="cv.html" target="_blank" class="clink rv d1">
+            <div class="clink-icon">CV</div>
+            <div>
+              <div class="clink-title">My CV</div>
+              <div class="clink-sub" data-i18n="cv_sub">View my curriculum vitae</div>
+            </div>
+          </a>
+          <a href="https://instagram.com/pamirmeliss/" target="_blank" rel="noopener" class="clink rv d2">
+            <div class="clink-icon">ig</div>
+            <div>
+              <div class="clink-title">Instagram</div>
+              <div class="clink-sub">@pamirmeliss</div>
+            </div>
+          </a>
+          <div onclick="copyEmail(event)" class="clink rv d3" style="cursor:none;">
+            <div class="clink-icon">@</div>
+            <div>
+              <div class="clink-title" data-i18n="email_title">Email</div>
+              <div class="clink-sub">pamirmeliss@gmail.com</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="contact-links">
-        <a href="https://www.linkedin.com/in/melis-pamir-642112261/" target="_blank" rel="noopener" class="clink rv">
-          <div class="clink-icon">in</div>
-          <div>
-            <div class="clink-title">LinkedIn</div>
-            <div class="clink-sub" data-i18n="linkedin_sub">Melis Pamir — Connect</div>
+
+      <!-- RIGHT: contact form -->
+      <div class="rv d2">
+        <form class="contact-form" id="contact-form"
+              action="https://formspree.io/f/YOUR_FORM_ID"
+              method="POST">
+          <div class="cf-row">
+            <div class="cf-field">
+              <label class="cf-label" data-i18n="form_name">Name</label>
+              <input class="cf-input" type="text" name="name" required
+                     data-i18n-ph="form_name_ph" placeholder="Your name">
+            </div>
+            <div class="cf-field">
+              <label class="cf-label" data-i18n="form_email_lbl">Email</label>
+              <input class="cf-input" type="email" name="email" required
+                     data-i18n-ph="form_email_ph" placeholder="your@email.com">
+            </div>
           </div>
-        </a>
-        <a href="https://instagram.com/pamirmeliss/" target="_blank" rel="noopener" class="clink rv d1">
-          <div class="clink-icon">ig</div>
-          <div>
-            <div class="clink-title">Instagram</div>
-            <div class="clink-sub">@pamirmeliss</div>
+          <div class="cf-field">
+            <label class="cf-label" data-i18n="form_subject">Subject</label>
+            <input class="cf-input" type="text" name="subject"
+                   data-i18n-ph="form_subject_ph" placeholder="Research collaboration, internship...">
           </div>
-        </a>
-        <a href="mailto:pamirmeliss@gmail.com" class="clink rv d2">
-          <div class="clink-icon">@</div>
-          <div>
-            <div class="clink-title" data-i18n="email_title">Email</div>
-            <div class="clink-sub">pamirmeliss@gmail.com</div>
+          <div class="cf-field">
+            <label class="cf-label" data-i18n="form_message">Message</label>
+            <textarea class="cf-textarea" name="message" rows="5" required
+                      data-i18n-ph="form_message_ph" placeholder="Tell me about your project or idea..."></textarea>
           </div>
-        </a>
-        <a href="cv.html" target="_blank" class="clink rv d3">
-          <div class="clink-icon">CV</div>
-          <div>
-            <div class="clink-title">My CV</div>
-            <div class="clink-sub">View my curriculum vitae</div>
-          </div>
-        </a>
+          <button class="cf-submit" type="submit" data-i18n="form_send">Send Message →</button>
+          <p class="cf-note" id="cf-status"></p>
+        </form>
       </div>
     </div>
   </div>
@@ -1004,7 +1181,7 @@
 <!-- Footer -->
 <footer>
   <div class="footer-logo">Melis Pamir</div>
-  <div class="footer-copy" data-i18n="footer_copy">© 2025 — Biomedical Engineer</div>
+  <div class="footer-copy" data-i18n="footer_copy">© 2026 — Biomedical Engineer</div>
 </footer>
 
 <script>
@@ -1396,13 +1573,13 @@ const _T = {
     isg_li2:'Developed interpersonal communication and negotiation skills in a multicultural environment.',
     isg_sk1:'Italian', isg_sk2:'English', isg_sk3:'Client Relations', isg_sk4:'Communication',
     proj_eyebrow:'Projects', proj_title:'Development',
-    proj01_num:'01 — FEATURED', proj01_title:'Cardiac Biosensor Development',
+    proj01_num:'01 — FEATURED', proj01_title:'Cardiac Biosensor Development', proj01_status:'In Progress',
     proj01_desc:'Design and prototype of a low-cost, portable biosensor system using electrochemical methods to accurately detect cardiac biomarkers (troponin, BNP).',
     proj01_tag1:'Electrochemistry', proj01_tag2:'Biosensor', proj01_tag3:'Microfabrication',
-    proj02_title:'EEG Signal Processing &amp; BCI', proj02_desc:'Classification of EEG signals using deep learning methods and real-time processing for brain-computer interface applications.', proj02_tag1:'Deep Learning',
-    proj03_title:'Microfluidic Chip Design', proj03_desc:'PDMS-based microfluidic device design for an organ-on-a-chip platform, cell culture and flow characterization studies.', proj03_tag1:'Microfluidics',
-    proj04_title:'Medical Image Segmentation', proj04_desc:'Development and clinical validation of a U-Net architecture-based deep learning model for tumor segmentation from MRI images.',
-    proj05_title:'Drug Delivery System Modeling', proj05_desc:'Mathematical modeling and in-vitro validation of controlled drug release from nanostructured polymeric matrices.', proj05_tag1:'Nanotechnology', proj05_tag3:'Modeling',
+    proj02_title:'EEG Signal Processing &amp; BCI', proj02_desc:'Classification of EEG signals using deep learning methods and real-time processing for brain-computer interface applications.', proj02_tag1:'Deep Learning', proj02_status:'In Progress',
+    proj03_title:'Microfluidic Chip Design', proj03_desc:'PDMS-based microfluidic device design for an organ-on-a-chip platform, cell culture and flow characterization studies.', proj03_tag1:'Microfluidics', proj03_status:'Completed',
+    proj04_title:'Medical Image Segmentation', proj04_desc:'Development and clinical validation of a U-Net architecture-based deep learning model for tumor segmentation from MRI images.', proj04_status:'Completed',
+    proj05_title:'Drug Delivery System Modeling', proj05_desc:'Mathematical modeling and in-vitro validation of controlled drug release from nanostructured polymeric matrices.', proj05_tag1:'Nanotechnology', proj05_tag3:'Modeling', proj05_status:'Completed',
     skills_eyebrow:'Skills', skills_title:'Technical &amp;<br>Scientific Skills',
     skills_intro1:'I have versatile experience across the broad spectrum of biomedical engineering. I use a comprehensive toolkit ranging from laboratory techniques to computational modeling.',
     skills_intro2:'With my continuous learning mindset and research curiosity, I aim to acquire new competencies every day.',
@@ -1411,7 +1588,14 @@ const _T = {
     skills_grp3:'Research Areas', skills_grp3_s1:'Biosensors', skills_grp3_s2:'Medical Imaging', skills_grp3_s3:'Tissue Engineering', skills_grp3_s4:'Neuroengineering',
     skills_grp4:'Languages', skills_grp4_s1:'Turkish (Native)', skills_grp4_s2:'English (Advanced)', skills_grp4_s3:'Italian (Intermediate)', skills_grp4_s4:'German (Basic)',
     contact_eyebrow:'Contact', contact_tagline:'Let\'s<br><span>work</span><br>together?',
-    linkedin_sub:'Melis Pamir — Connect', email_title:'Email', footer_copy:'© 2025 — Biomedical Engineer',
+    linkedin_sub:'Melis Pamir — Connect', email_title:'Email', footer_copy:'© 2026 — Biomedical Engineer',
+    cv_sub:'View my curriculum vitae',
+    form_name:'Name', form_name_ph:'Your name',
+    form_email_lbl:'Email', form_email_ph:'your@email.com',
+    form_subject:'Subject', form_subject_ph:'Research collaboration, internship...',
+    form_message:'Message', form_message_ph:'Tell me about your project or idea...',
+    form_send:'Send Message →', form_ok:'Message sent! I\'ll get back to you soon.',
+    form_err:'Something went wrong. Please email me directly.',
     tw:'Biomedical Research & Health Technologies',
   },
   tr: {
@@ -1430,7 +1614,7 @@ const _T = {
     edu_cons_school:'İstanbul Üniversitesi Devlet Konservatuvarı', edu_cons_degree:'Müzik Bölümü', edu_cons_field:'İstanbul, Türkiye',
     edu_cons_tag1:'Üflemeli Çalgılar Anasanat Dalı', edu_cons_tag2:'Müzik Teorisi',
     exp_eyebrow:'Deneyim', exp_title:'Stajlar &amp;<br>Araştırmalar',
-    iba_org:'IBA Dosimetry · Stajyer', iba_meta:'Tem 2024 — Kas 2024 · 5 ay · Germany · Ofiste',
+    iba_org:'IBA Dosimetry · Stajyer', iba_meta:'Tem 2024 — Kas 2024 · 5 ay · Almanya · Ofiste',
     iba_li1:'Tıbbi dozimetri cihazlarının kalibrasyonu ve teknik bakım süreçleri.',
     iba_li2:'MRI ve radyasyon dozimetri sistemleriyle teknik ölçüm çalışmaları.',
     iba_li3:'Microsoft Excel ile ölçüm verilerinin analizi ve teknik raporlama.',
@@ -1441,13 +1625,13 @@ const _T = {
     isg_li2:'Çok kültürlü iş ortamında kişilerarası iletişim ve müzakere becerileri.',
     isg_sk1:'İtalyanca', isg_sk2:'İngilizce', isg_sk3:'Müşteri İlişkileri', isg_sk4:'İletişim',
     proj_eyebrow:'Projeler', proj_title:'Geliştirme',
-    proj01_num:'01 — ÖNE ÇIKAN', proj01_title:'Kardiyak Biyosensör Geliştirme',
+    proj01_num:'01 — ÖNE ÇIKAN', proj01_title:'Kardiyak Biyosensör Geliştirme', proj01_status:'Devam Ediyor',
     proj01_desc:'Elektrokimyasal yöntemler kullanarak kardiyak biyobelirteçleri (troponin, BNP) hassas biçimde saptayan düşük maliyetli, taşınabilir biyosensör sistemi tasarımı ve prototipi.',
     proj01_tag1:'Elektrokimya', proj01_tag2:'Biyosensör', proj01_tag3:'Mikrofabrikasyon',
-    proj02_title:'EEG Sinyal İşleme &amp; BCI', proj02_desc:'Beyin-bilgisayar arayüzü uygulamaları için EEG sinyallerinin derin öğrenme yöntemleriyle sınıflandırılması ve gerçek zamanlı işlenmesi.', proj02_tag1:'Derin Öğrenme',
-    proj03_title:'Mikrofludik Chip Tasarımı', proj03_desc:'Organ-on-a-chip platformu için PDMS tabanlı mikrofludik cihaz tasarımı, hücre kültürü ve akış karakterizasyonu çalışmaları.', proj03_tag1:'Mikrofludik',
-    proj04_title:'Tıbbi Görüntü Segmentasyonu', proj04_desc:'MRI görüntülerinden tümör segmentasyonu için U-Net mimarisi tabanlı derin öğrenme modeli geliştirme ve klinik validasyonu.',
-    proj05_title:'İlaç Salım Sistemi Modelleme', proj05_desc:'Nanoyapılı polimerik matrislerden kontrollü ilaç salımının matematiksel modellenmesi ve in-vitro validasyonu.', proj05_tag1:'Nanoteknoloji', proj05_tag3:'Modelleme',
+    proj02_title:'EEG Sinyal İşleme &amp; BCI', proj02_desc:'Beyin-bilgisayar arayüzü uygulamaları için EEG sinyallerinin derin öğrenme yöntemleriyle sınıflandırılması ve gerçek zamanlı işlenmesi.', proj02_tag1:'Derin Öğrenme', proj02_status:'Devam Ediyor',
+    proj03_title:'Mikrofludik Chip Tasarımı', proj03_desc:'Organ-on-a-chip platformu için PDMS tabanlı mikrofludik cihaz tasarımı, hücre kültürü ve akış karakterizasyonu çalışmaları.', proj03_tag1:'Mikrofludik', proj03_status:'Tamamlandı',
+    proj04_title:'Tıbbi Görüntü Segmentasyonu', proj04_desc:'MRI görüntülerinden tümör segmentasyonu için U-Net mimarisi tabanlı derin öğrenme modeli geliştirme ve klinik validasyonu.', proj04_status:'Tamamlandı',
+    proj05_title:'İlaç Salım Sistemi Modelleme', proj05_desc:'Nanoyapılı polimerik matrislerden kontrollü ilaç salımının matematiksel modellenmesi ve in-vitro validasyonu.', proj05_tag1:'Nanoteknoloji', proj05_tag3:'Modelleme', proj05_status:'Tamamlandı',
     skills_eyebrow:'Yetkinlikler', skills_title:'Teknik &amp;<br>Bilimsel Beceriler',
     skills_intro1:'Biyomedikal mühendislik alanının geniş yelpazesinde çok yönlü deneyime sahibim. Laboratuvar tekniklerinden hesaplamalı modellemeye kapsamlı bir araç seti kullanıyorum.',
     skills_intro2:'Sürekli öğrenme ve araştırma merakımla her geçen gün yeni yetkinlikler kazanmayı hedefliyorum.',
@@ -1456,7 +1640,14 @@ const _T = {
     skills_grp3:'Araştırma Alanları', skills_grp3_s1:'Biyosensörler', skills_grp3_s2:'Tıbbi Görüntüleme', skills_grp3_s3:'Doku Mühendisliği', skills_grp3_s4:'Nöromühendislik',
     skills_grp4:'Diller', skills_grp4_s1:'Türkçe (Anadil)', skills_grp4_s2:'İngilizce (İleri)', skills_grp4_s3:'İtalyanca (Orta)', skills_grp4_s4:'Almanca (Temel)',
     contact_eyebrow:'İletişim', contact_tagline:'Birlikte<br><span>çalışalım</span><br>mı?',
-    linkedin_sub:'Melis Pamir — Bağlantı kur', email_title:'E-posta', footer_copy:'© 2025 — Biyomedikal Mühendis',
+    linkedin_sub:'Melis Pamir — Bağlantı kur', email_title:'E-posta', footer_copy:'© 2026 — Biyomedikal Mühendis',
+    cv_sub:'CV\'mi görüntüle',
+    form_name:'İsim', form_name_ph:'Adınız',
+    form_email_lbl:'E-posta', form_email_ph:'email@ornek.com',
+    form_subject:'Konu', form_subject_ph:'Araştırma işbirliği, staj...',
+    form_message:'Mesaj', form_message_ph:'Proje veya fikrinizi anlatın...',
+    form_send:'Mesaj Gönder →', form_ok:'Mesajınız gönderildi! En kısa sürede döneceğim.',
+    form_err:'Bir sorun oluştu. Lütfen doğrudan e-posta gönderin.',
     tw:'Biyomedikal Araştırma & Sağlık Teknolojileri',
   }
 };
@@ -1471,6 +1662,10 @@ function setLang(lang) {
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     const k = el.dataset.i18nHtml;
     if (t[k] !== undefined) el.innerHTML = t[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.dataset.i18nPh;
+    if (t[k] !== undefined) el.placeholder = t[k];
   });
   const flagClasses = {en:'fi fi-gb', tr:'fi fi-tr'};
   const labels = {en:'EN', tr:'TR'};
@@ -1715,7 +1910,186 @@ document.addEventListener('click', () => {
   document.getElementById('lang-sw').classList.remove('open');
 });
 
-document.addEventListener('DOMContentLoaded', () => setLang('en'));
+// ── PARTICLE ANIMATION ──
+(function(){
+  const cv = document.getElementById('particle-canvas');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  let W, H, particles = [], mouse = {x:null, y:null};
+
+  function resize(){
+    W = cv.width  = window.innerWidth;
+    H = cv.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  document.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+  const COUNT = Math.min(90, Math.floor(window.innerWidth / 14));
+  const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
+
+  for(let i = 0; i < COUNT; i++){
+    particles.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: .6 + Math.random() * 1.8,
+      vx: (Math.random() - .5) * .38,
+      vy: (Math.random() - .5) * .38,
+      o: .15 + Math.random() * .45,
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    const teal = isLight() ? 'rgba(0,168,158,' : 'rgba(0,212,200,';
+
+    particles.forEach((p, i) => {
+      // mouse repel
+      if(mouse.x !== null){
+        const dx = p.x - mouse.x, dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 120){
+          p.vx += (dx / dist) * .06;
+          p.vy += (dy / dist) * .06;
+        }
+      }
+      p.vx *= .995; p.vy *= .995;
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0) p.x = W; if(p.x > W) p.x = 0;
+      if(p.y < 0) p.y = H; if(p.y > H) p.y = 0;
+
+      // dot
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = teal + p.o + ')';
+      ctx.fill();
+
+      // lines between close particles
+      for(let j = i+1; j < particles.length; j++){
+        const q = particles[j];
+        const dx = p.x - q.x, dy = p.y - q.y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if(d < 110){
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = teal + ((1 - d/110) * .12) + ')';
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── PROGRESS BAR + BACK TO TOP + AKTİF NAV ──
+(function() {
+  const bar = document.getElementById('progress-bar');
+  const backTop = document.getElementById('back-top');
+  const sections = ['about','education','experience','projects','skills','contact'];
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (scrolled / total * 100) + '%';
+    backTop.classList.toggle('visible', scrolled > 400);
+
+    // Aktif nav
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 120) current = id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+})();
+
+// ── COPY EMAIL ──
+function copyEmail(e) {
+  e.preventDefault();
+  navigator.clipboard.writeText('pamirmeliss@gmail.com').then(() => {
+    const toast = document.getElementById('copy-toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
+}
+
+// ── THEME TOGGLE ──
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  const isLight = html.getAttribute('data-theme') === 'light';
+  if (isLight) {
+    html.removeAttribute('data-theme');
+    btn.textContent = '☀';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    html.setAttribute('data-theme', 'light');
+    btn.textContent = '☽';
+    localStorage.setItem('theme', 'light');
+  }
+}
+// Sayfa açılınca kaydedilen temayı uygula
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = '☽';
+  }
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  setLang('en');
+
+  // ── CONTACT FORM (Formspree AJAX) ──
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = form.querySelector('.cf-submit');
+      const status = document.getElementById('cf-status');
+      const t = _T[window._curLang || 'en'];
+      btn.disabled = true;
+      btn.textContent = '…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          status.textContent = t.form_ok;
+          status.style.color = 'var(--teal)';
+          form.reset();
+        } else {
+          status.textContent = t.form_err;
+          status.style.color = '#e06c75';
+        }
+      } catch {
+        status.textContent = t.form_err;
+        status.style.color = '#e06c75';
+      }
+      btn.disabled = false;
+      btn.textContent = t.form_send;
+    });
+  }
+});
+</script>
+
+<!-- Google Analytics — replace G-XXXXXXXXXX with your Measurement ID from analytics.google.com -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
 </script>
 </body>
 </html>

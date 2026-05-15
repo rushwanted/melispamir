@@ -278,7 +278,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <div class="topbar-logo">Melis Pamir · Curriculum Vitae</div>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:.4rem;color:var(--teal);font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--brd-hi);padding:.5rem 1rem;transition:background .2s;" onmouseover="this.style.background='var(--teal-lo)'" onmouseout="this.style.background='transparent'">← Back</a>
+    <div class="topbar-logo">Melis Pamir · Curriculum Vitae</div>
+  </div>
   <button class="btn-print" onclick="window.print()">↓ Download PDF</button>
 </div>
 
@@ -294,7 +297,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
       <div class="sb-photo-wrap">
         <div class="sb-ring" style="position:relative;">
           <div class="sb-hud"></div>
-          <img src="photo.jpg2.jpg" alt="Melis Pamir" class="sb-photo"
+          <img src="photo_jpg2.jpg" alt="Melis Pamir" class="sb-photo"
             onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<div class=\'sb-photo-ph\'>MP</div>')"/>
         </div>
         <div>
@@ -486,7 +489,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 
 <div class="cv-footer">
   <div class="cv-footer-name">Melis Pamir · CV</div>
-  <div class="cv-footer-note">rushwanted.github.io/melispamir · 2025</div>
+  <div class="cv-footer-note">rushwanted.github.io/melispamir · 2026</div>
 </div>
 
 <script>
