@@ -257,52 +257,85 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 @keyframes sweep{0%{left:-100%}100%{left:100%}}
 
 /* ── MOBILE ── */
-@media(max-width:700px){
-  body{ overflow-x:hidden; }
+@media(max-width:760px){
+  html,body{ overflow-x:hidden; }
 
+  /* Topbar: arka Back + Download yan yana, başlık gizle */
   .topbar{
-    flex-direction:column; align-items:flex-start; gap:.75rem;
-    padding:1.2rem 1rem 1rem;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    padding:.9rem 1rem !important;
+    gap:.5rem;
   }
-  .topbar > div { flex-wrap:wrap; gap:.5rem; }
-  .topbar-logo{ font-size:.7rem; }
+  .topbar-logo{ display:none; }
+  .topbar > div{ gap:.5rem; }
 
+  /* Glow line */
+  .glow-h{ margin:0; }
+
+  /* Page: tek sütun */
   .page{
-    grid-template-columns:1fr;
-    margin:0 0 2rem;
-    border-left:none; border-right:none; border-radius:0;
+    display:flex !important;
+    flex-direction:column !important;
+    max-width:100% !important;
+    width:100% !important;
+    margin:0 0 2rem !important;
+    border-left:none !important;
+    border-right:none !important;
+    overflow:visible !important;
   }
 
-  /* Sidebar goes full-width on top */
-  .sb{ border-right:none; border-bottom:1px solid rgba(0,212,200,.14); }
-  .sb-inner{ padding:1.6rem 1.2rem; gap:1.4rem; }
-  .sb-photo-wrap{ flex-direction:row; align-items:center; gap:1.2rem; }
-  .sb-ring{ width:80px; height:80px; }
-  .sb-photo-ph{ width:74px; height:74px; font-size:1.2rem; }
-  .sb-name{ font-size:.95rem; text-align:left; }
-  .sb-role{ text-align:left; }
+  /* Sidebar: tam genişlik, yatay fotoğraf düzeni */
+  .sb{
+    width:100% !important;
+    border-right:none !important;
+    border-bottom:1px solid rgba(0,212,200,.18) !important;
+  }
+  .sb-inner{
+    padding:1.4rem 1.1rem !important;
+    gap:1.2rem !important;
+  }
+  .sb-photo-wrap{
+    flex-direction:row !important;
+    align-items:center !important;
+    gap:1rem !important;
+  }
+  .sb-ring{ width:72px !important; height:72px !important; }
+  .sb-photo-ph{ width:66px !important; height:66px !important; font-size:1.1rem !important; }
+  .sb-name{ font-size:.9rem !important; text-align:left !important; }
+  .sb-role{ text-align:left !important; font-size:.58rem !important; }
 
-  /* Main content */
-  .main{ padding:1.4rem 1rem; gap:1.6rem; }
-  .about-hl{ font-size:.8rem; }
+  /* Main: full width, dar padding */
+  .main{
+    width:100% !important;
+    padding:1.2rem 1rem !important;
+    gap:1.5rem !important;
+    background:#ffffff;
+  }
 
-  /* Project grid → single column */
-  .proj-row{ grid-template-columns:1fr; }
+  /* Sub-grids → tek sütun */
+  .proj-row{ grid-template-columns:1fr !important; }
+  .skill-2col{ grid-template-columns:1fr !important; }
+  .bio-soft-grid{ grid-template-columns:1fr !important; }
 
-  /* Skills 2-col → single column */
-  .skill-2col{ grid-template-columns:1fr; }
-
-  /* Bio soft grid → single column */
-  .bio-soft-grid{ grid-template-columns:1fr; }
+  /* Experience cards: daha dar */
+  .exp-hd{ flex-direction:column !important; gap:.2rem !important; }
+  .exp-date{ font-size:.6rem !important; }
 
   /* Footer */
   .cv-footer{
-    flex-direction:column; gap:.4rem; text-align:center;
-    padding:.8rem 1rem; margin:0 0 2rem;
-    border-left:none; border-right:none;
+    flex-direction:column !important;
+    text-align:center !important;
+    padding:.8rem 1rem !important;
+    margin:0 0 2rem !important;
+    border-left:none !important;
+    border-right:none !important;
+    max-width:100% !important;
   }
 
-  .glow-h{ margin:0; }
+  /* Blobs: hide on mobile (performance) */
+  .blob{ display:none !important; }
 }
 
 /* PRINT */
